@@ -1412,18 +1412,41 @@ namespace UnityEngine.Rendering.Universal
             {
                 case 1:
                     shadowData.mainLightShadowCascadesSplit = new Vector3(1.0f, 0.0f, 0.0f);
+                    shadowData.mainLightShadowCascadesSplit2=Vector4.zero;
                     break;
 
                 case 2:
                     shadowData.mainLightShadowCascadesSplit = new Vector3(settings.cascade2Split, 1.0f, 0.0f);
+                    shadowData.mainLightShadowCascadesSplit2=Vector4.zero;
                     break;
 
                 case 3:
                     shadowData.mainLightShadowCascadesSplit = new Vector3(settings.cascade3Split.x, settings.cascade3Split.y, 0.0f);
+                    shadowData.mainLightShadowCascadesSplit2=Vector4.zero;
                     break;
-
+                case 4:
+                    shadowData.mainLightShadowCascadesSplit = settings.cascade4Split;
+                    shadowData.mainLightShadowCascadesSplit2=Vector4.zero;
+                    break;
+                case 5:
+                    shadowData.mainLightShadowCascadesSplit = settings.cascade4Split;
+                    shadowData.mainLightShadowCascadesSplit2=new Vector4(settings.cascade5Split, 1.0f, 0.0f,0.0f);
+                    break;
+                case 6:
+                    shadowData.mainLightShadowCascadesSplit = settings.cascade4Split;
+                    shadowData.mainLightShadowCascadesSplit2=new Vector4(settings.cascade6Split.x, settings.cascade6Split.y,1.0f, 0.0f);
+                    break;
+                case 7:
+                    shadowData.mainLightShadowCascadesSplit = settings.cascade4Split;
+                    shadowData.mainLightShadowCascadesSplit2=new Vector4(settings.cascade7Split.x, settings.cascade7Split.y, settings.cascade7Split.z, 0.0f);
+                    break;
+                case 8:
+                    shadowData.mainLightShadowCascadesSplit = settings.cascade4Split;
+                    shadowData.mainLightShadowCascadesSplit2=new Vector4(settings.cascade8Split.x, settings.cascade8Split.y, settings.cascade8Split.z, settings.cascade8Split.w);
+                    break;
                 default:
                     shadowData.mainLightShadowCascadesSplit = settings.cascade4Split;
+                    shadowData.mainLightShadowCascadesSplit2=Vector4.zero;
                     break;
             }
 

@@ -777,6 +777,10 @@ namespace UnityEngine.Rendering.Universal
         /// The split between cascades.
         /// </summary>
         public Vector3 mainLightShadowCascadesSplit;
+        /// <summary>
+        /// KT 额外的四个级联阴影
+        /// </summary>
+        public Vector4 mainLightShadowCascadesSplit2;
 
         /// <summary>
         /// Main light last cascade shadow fade border.

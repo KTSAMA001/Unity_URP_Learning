@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Experimental.Rendering.RenderGraphModule;
 
@@ -76,21 +77,23 @@ namespace UnityEngine.Rendering.Universal.Internal
             MainLightShadowConstantBuffer._CascadeShadowSplitSpheres2 = Shader.PropertyToID("_CascadeShadowSplitSpheres2");
             MainLightShadowConstantBuffer._CascadeShadowSplitSpheres3 = Shader.PropertyToID("_CascadeShadowSplitSpheres3");
             MainLightShadowConstantBuffer._CascadeShadowSplitSphereRadii = Shader.PropertyToID("_CascadeShadowSplitSphereRadii");
-          
+            MainLightShadowConstantBuffer._ShadowOffset0 = Shader.PropertyToID("_MainLightShadowOffset0");
+            MainLightShadowConstantBuffer._ShadowOffset1 = Shader.PropertyToID("_MainLightShadowOffset1");
+            MainLightShadowConstantBuffer._ShadowmapSize = Shader.PropertyToID("_MainLightShadowmapSize");
+            m_MainLightShadowmapID = Shader.PropertyToID("_MainLightShadowmapTexture");
+            m_EmptyLightShadowmapTexture = ShadowUtils.AllocShadowRT(1, 1, k_ShadowmapBufferBits, 1, 0, name: "_EmptyLightShadowmapTexture");
             //Add
             MainLightShadowConstantBuffer._CascadeShadowSplitSpheres4 = Shader.PropertyToID("_CascadeShadowSplitSpheres4");
             MainLightShadowConstantBuffer._CascadeShadowSplitSpheres5 = Shader.PropertyToID("_CascadeShadowSplitSpheres5");
             MainLightShadowConstantBuffer._CascadeShadowSplitSpheres6 = Shader.PropertyToID("_CascadeShadowSplitSpheres6");
             MainLightShadowConstantBuffer._CascadeShadowSplitSpheres7 = Shader.PropertyToID("_CascadeShadowSplitSpheres7");
             MainLightShadowConstantBuffer._CascadeShadowSplitSphereRadii2 = Shader.PropertyToID("_CascadeShadowSplitSphereRadii2");
-            MainLightShadowConstantBuffer._ShadowOffset0 = Shader.PropertyToID("_MainLightShadowOffset0");
-            MainLightShadowConstantBuffer._ShadowOffset1 = Shader.PropertyToID("_MainLightShadowOffset1");
+          
             MainLightShadowConstantBuffer._ShadowOffset2= Shader.PropertyToID("_MainLightShadowOffset2");
             MainLightShadowConstantBuffer._ShadowOffset3 = Shader.PropertyToID("_MainLightShadowOffset3");
-            MainLightShadowConstantBuffer._ShadowmapSize = Shader.PropertyToID("_MainLightShadowmapSize");
+     
 
-            m_MainLightShadowmapID = Shader.PropertyToID("_MainLightShadowmapTexture");
-            m_EmptyLightShadowmapTexture = ShadowUtils.AllocShadowRT(1, 1, k_ShadowmapBufferBits, 1, 0, name: "_EmptyLightShadowmapTexture");
+           
         }
 
         /// <summary>
@@ -155,7 +158,12 @@ namespace UnityEngine.Rendering.Universal.Internal
                 if (!success)
                     return SetupForEmptyRendering(ref renderingData);
             }
-
+//当前已知：xyz分量是世界坐标下的球体包围盒参数，z分量则是半径；下一步就是手动计算八个级联阴影相关的参数了；
+            // if (! SceneView.currentDrawingSceneView)
+            // {
+            //     Debug.Log("0\n"+m_CascadeSlices[0].splitData.cullingSphere+"1\n"+m_CascadeSlices[1].splitData.cullingSphere+"2\n"+m_CascadeSlices[2].splitData.cullingSphere+"3\n"+m_CascadeSlices[3].splitData.cullingSphere);
+            // }
+         
             ShadowUtils.ShadowRTReAllocateIfNeeded(ref m_MainLightShadowmapTexture, renderTargetWidth, renderTargetHeight, k_ShadowmapBufferBits, name: "_MainLightShadowmapTexture");
 
             m_MaxShadowDistanceSq = renderingData.cameraData.maxShadowDistance * renderingData.cameraData.maxShadowDistance;
