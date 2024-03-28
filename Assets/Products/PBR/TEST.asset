@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1678850157, guid: ede9f12173208bc41b05f96939f0c882, type: 3}
+  m_Name: TEST
+  m_EditorClassIdentifier: 
+  data: 'SeamlessGraph
+
+    Preview;{"name":"Preview","position":{"x":-397.3226013183594,"y":186.07603454589845},"size":{"x":201.1016387939453,"y":189.1016387939453},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-774738}}],"parameters":[],"cs":{"instanceID":28242},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Voronoi;{"name":"Voronoi","position":{"x":-721.196044921875,"y":-96.45354461669922},"size":{"x":201.1016387939453,"y":345.10162353515627},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Warp","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Cells","tex":{"instanceID":-774742}},{"name":"Gems","tex":{"instanceID":-774744}},{"name":"Cracks","tex":{"instanceID":-774746}},{"name":"Code","tex":{"instanceID":-774748}}],"parameters":[{"name":"Thickness","value":{"x":0.05000000074505806,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Hardness","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Pan","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Scale","value":{"x":8.0,"y":8.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Seed","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":false}],"cs":{"instanceID":28246},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":156,"needsReload":false}
+
+    Links:
+
+    Preview:
+
+    -1:-1;-1:-1;-1:-1;-1:-1;-1:-1;-1:-1;
+
+'
+  textureSize: {x: 1024, y: 1024}

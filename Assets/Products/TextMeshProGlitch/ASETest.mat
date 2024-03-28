@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ASETest
+  m_Shader: {fileID: 4800000, guid: dfd89dcd1681bf04896cf15510bdbef8, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: cfbb2354dffda1a45b199fdc91b36e9f, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _DepthMaskColor:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Tex1:
+        m_Texture: {fileID: 2800000, guid: 5bed2a284c8ee4b4e98cfc8d7876ada3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Tex2:
+        m_Texture: {fileID: 2800000, guid: b8a3a20a3e472754786d93a19395aac0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: e4421ab1149ef4f4d86bf6b89672a2d4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample1:
+        m_Texture: {fileID: 2800000, guid: f0494ee0a50cade45bd4e9fb79d10cd9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _DepthMaskTexScale: 0.9
+    - _Float0: 1.81
+    - _Float1: -60.2
+    - _Float2: 0.04
+    - _Float3: 0.01
+    - _Float4: 1.14
+    - _Float5: 172.5
+    - _Float6: 0.04
+    - _Float7: 0.01
+    - _Float8: 1.14
+    - _Float9: 173
+    - _LeftEyeRotate: 60.37
+    - _NoiseMax: 1
+    - _NoiseMin: 0.1
+    - _PixcelLate: 20
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RandomSeed: 6.41
+    - _RightEyeRotate: -60.2
+    - _RotateSpeed: 1
+    - _RotateSpeedScale: 1
+    - _SDF_Scale: 10
+    - _SDF_UVScale: 15
+    - _Size: -0.3
+    - _Speed: 3
+    - _TillingTex1: 1.5
+    - _TillingTex2: 1.5
+    m_Colors:
+    - _BaseColor: {r: 0.732, g: 0.48144954, b: 0.4224966, a: 1}
+    - _Color0: {r: 0, g: 0.9884371, b: 1, a: 0}
+    - _Color_DepthMask: {r: 0.2754717, g: 0.2754717, b: 0.2754717, a: 0}
+    - _Color_DepthMask1: {r: 1, g: 1, b: 1, a: 0}
+    - _Color_DepthMask2: {r: 1, g: 1, b: 1, a: 0}
+    - _DepthOffset: {r: -309.86, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LeftEyeOffsetSize: {r: 0.12, g: -0.05, b: 0.06, a: 0.01}
+    - _MapCount: {r: 0.56, g: 0.4, b: 0, a: 0}
+    - _MouseOffset: {r: -0.11, g: 0.04, b: 0.06, a: 0.015}
+    - _RightEyeOffsetSize: {r: -0.11, g: -0.05, b: 0.06, a: 0.01}
+    - _SDFColor: {r: 0, g: 0.71, b: 0.6176027, a: 0}
+    - _SDFUV_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _SDF_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _SDF_ScaleOffset: {r: 10, g: 10, b: 0, a: 0}
+    - _Sdf_Box1_Size: {r: 0.25, g: 0.2, b: 0, a: 0}
+    - _Sdf_sdRoundedX1_Size: {r: 0.38, g: 0.01, b: 0, a: -0.1}
+    - _Tex1Color: {r: 1, g: 0.8426774, b: 0.80566037, a: 1}
+    - _Tex2Color: {r: 0.77800006, g: 0.5117047, b: 0.44904697, a: 1}
+    - _TillingTex1: {r: 0.55, g: 1.2, b: 0, a: 0}
+    - _Vector1: {r: 0.12, g: -0.05, b: 0.06, a: 0.01}
+    - _Vector3: {r: -0.11, g: -0.05, b: 0.06, a: 0.01}
+    - _Vector5: {r: 0.34, g: 0, b: 0, a: 0}
+    - _Vector6: {r: 0.145, g: -0.004, b: 0, a: 0}
+    - _Vector7: {r: 0.08, g: 0, b: 0, a: 0}
+    - _Vector8: {r: 0.1, g: -0.05, b: 0.06, a: 0.015}
+  m_BuildTextureStacks: []

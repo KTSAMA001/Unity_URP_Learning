@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: "\u89C6\u5DEEFGO_Dark"
+  m_Shader: {fileID: 4800000, guid: 5eae3394a111b584eaba6d95abbc07f4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 1998
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - TextureSample0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _B:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _B2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Back:
+        m_Texture: {fileID: 2800000, guid: 750b1bd7ba8bd28489650de6d0a95cc5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CardBack:
+        m_Texture: {fileID: 2800000, guid: 81da8bfd035b3424ab342fa7726d40b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CardBackFlash:
+        m_Texture: {fileID: 2800000, guid: 30945aadf8e80bb439d488eff7243c67, type: 3}
+        m_Scale: {x: 0.5, y: 0.725}
+        m_Offset: {x: 0, y: 0}
+    - _F_FlowMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FlowMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Front:
+        m_Texture: {fileID: 2800000, guid: eed2f3c763db8e14b91cabbec6512ccb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Front1:
+        m_Texture: {fileID: 2800000, guid: 81da8bfd035b3424ab342fa7726d40b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Front2:
+        m_Texture: {fileID: 2800000, guid: bdb06b5d27d83f7488a8cd0d5ef85365, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 1, y: 0}
+    - _M:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 57817e50e3ef7ba418e81ff947f9702d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PikaPikaMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1.45}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: 5c9923e0e14bf5945ab6fb67100d4c2d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddtionMask: 0
+    - _AlphaCutoff: 0.5
+    - _B_AddtionMask: 0
+    - _BackFlashHadrness: 0.8
+    - _BackFlashwidth: 1.35
+    - _Back_AddtionMask: 0
+    - _CardBackPikaPika: 0
+    - _Depth: -0.83
+    - _DepthBack: -0.97
+    - _DepthMain: -0.2
+    - _Dissolve_Amount: 0
+    - _EnvironmentReflections: 1
+    - _FPikaPika: 0
+    - _F_AddtionMask: 0
+    - _F_Flow: 0
+    - _Float0: 0.8
+    - _Float1: 7.32
+    - _QueueControl: 0
+    - _QueueOffset: -2
+    - _ReceiveShadows: 1
+    - _Size: 1
+    - _SpecularHighlights: 1
+    - __dirty: 0
+    m_Colors:
+    - _BaseDir: {r: 0, g: 1, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MaskPos: {r: 0, g: -1, b: 0, a: 0}
+    - _NoiseMap_ST: {r: 1, g: 1, b: 0, a: 0}
+    - _SO_B: {r: 0.81, g: 1.81, b: 0, a: -0.46}
+    - _SO_B2: {r: 0.61, g: 0.29, b: 0.26, a: 0.39}
+    - _SO_M: {r: 0.8, g: 1.16, b: 0.12, a: -0.08}
+    - _Vector0: {r: 1, g: 1, b: 0, a: 0}
+    - _View_Color_Offset: {r: -0.08, g: -0.11, b: 0, a: 0}
+  m_BuildTextureStacks: []

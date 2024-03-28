@@ -1,0 +1,36 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Result;
+float CircleShape(float2 p,float center,float radius,float smooth)
+{
+    float c=length(p-center);
+    return smoothstep(c-smooth,c+smooth,radius);
+}
+struct Circle
+{
+    float radius;
+    float center;
+    float smooth;
+};
+StructuredBuffer<Circle> CircleBuffer;
+[numthreads(128,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    uint width;
+    uint height;
+    Result.GetDimensions(width,height);
+    float2 uv = float2((id.xy+0.5)/float2(width,height));
+    float center=CircleBuffer[id.x].center;
+    float radius=CircleBuffer[id.x].radius;
+    float smooth=CircleBuffer[id.x].smooth;
+
+    float c= CircleShape(uv,center,radius,smooth);;
+      // Result[id.xy] = float4(uv.xy,0,1);
+ Result[id.xy] = c;
+
+    //Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
+}
