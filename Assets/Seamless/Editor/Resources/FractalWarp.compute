@@ -1,0 +1,106 @@
+/*
+ * @file    FractalWarp.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel FractalWarp
+
+#include "Common.hlsl"
+
+float Width;
+float Height;
+float uLacunarity;
+float uGain;
+int uOctaves;
+float uVoronoi;
+float uBlur;
+float uPanX;
+float uPanY;
+float uScaleX;
+float uScaleY;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Warp;
+
+
+float hashf(float n) { int q = int(n); return float((0x3504f333 * q * q + q) * (0xf1bbcdcb * q * q + q)) * (2.f / 8589934592.f) + .5f; }
+
+float noise(float3  x)
+{
+    float3 p = floor(x);
+    float3 f = frac(x);
+    f = f * f * (3.f - 2.0f * f);
+
+    float n = p.x + p.y * 57 + 113 * p.z;
+    float res = lerp(lerp(lerp(hashf(n), hashf(n + 1), f.x),
+        lerp(hashf(n + 57), hashf(n + 58), f.x), f.y),
+        lerp(lerp(hashf(n + 113), hashf(n + 114), f.x),
+            lerp(hashf(n + 170), hashf(n + 171), f.x), f.y), f.z);
+    return res;
+}
+
+float3 noise3d(float2 x) { return float3(noise(float3(x.x, x.y, x.y) * 100.f), noise(float3(x.y, x.x, x.x) * 200.f), noise(float3(x.y, x.x, x.y) * 300.f)); }
+
+float3 hash3(float2 p) { return frac(sin(float3(dot(p, float2(127.1, 311.7)), dot(p, float2(269.5, 183.3)), dot(p, float2(419.2, 371.9)))) * 43758.5453f); }
+
+
+float iqnoise(float2 x, float u, float v, int iter)
+{
+    float va = 0;
+    float wt = 0;
+    for (float j = -2; j <= 2; ++j)
+        for (float i = -2; i <= 2; ++i)
+        {
+            float3 o = hash3(mod((floor(x) + float2(i, j)), float2(uScaleX, uScaleY) * pow(abs(uLacunarity), float(iter)))) * float3(u, u, 1);
+            float2 r = float2(i, j) - frac(x) + float2(o.xy);
+            float ww = pow(abs(1 - smoothstep(.0f, 1.414f, sqrt(dot(r, r)))), 1 + 63 * pow(abs(1 - v), 4));
+            va += o.z * ww;
+            wt += ww;
+        }
+    return va / wt;
+}
+
+
+float random(float2 coord) {
+    return frac(sin(dot(coord.xy,
+        float2(12.9898, 78.233))) *
+        43758.5453123);
+}
+
+float noise(float2 coord) {
+    float2 i = floor(coord);
+    float2 f = frac(coord);
+
+    float a = random(i);
+    float b = random(i + float2(1.0, 0.0));
+    float c = random(i + float2(0.0, 1.0));
+    float d = random(i + float2(1.0, 1.0));
+
+    float2 u = f * f * (3.0 - 2.0 * f);
+
+    return lerp(a, b, u.x) +
+        (c - a) * u.y * (1.0 - u.x) +
+        (d - b) * u.x * u.y;
+}
+
+float fbm(float2 coord) {
+    float value = 0.0;
+    float amplitude = 1;
+
+    for (int i = 0; i < uOctaves; i++) {
+        value += amplitude* abs(iqnoise(coord, uVoronoi, uBlur, i)*2.0 - 1.0);
+        coord *= uLacunarity;
+        amplitude *= uGain;
+    }
+    return value;
+}
+
+[numthreads(8,8,1)]
+void FractalWarp(uint3 id : SV_DispatchThreadID)
+{
+    float2 w = Warp[id.xy].xy - float2(.5, .5);
+    float2 lUV = float2(id.xy) / float2(Width, Height) + w;
+    float2 p = float2((lUV.x + (uPanX * (0.5 / uScaleX))) * uScaleX, (lUV.y + (uPanY * (0.5 / uScaleY))) * uScaleY);
+    float n = fbm(p + float2(fbm(p), fbm(p-1.0)));
+    Output[id.xy] = float4(n, n, n, 1.0);
+}

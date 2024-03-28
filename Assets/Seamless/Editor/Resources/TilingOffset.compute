@@ -1,0 +1,25 @@
+/*
+ * @file    TilingOffset.compute
+ * @author  Leo Chaumartin
+ * @notes   https://thndl.com/going-round-in-squircles.html
+ */
+
+#pragma kernel TilingOffset
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+Texture2D<float4> Input;
+RWTexture2D<float4> Output;
+
+float uOffsetX;
+float uOffsetY;
+float uTilingX;
+float uTilingY;
+
+[numthreads(8,8,1)]
+void TilingOffset(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = Input[mod(id.xy * float2(uTilingX, uTilingY) + float2(uOffsetX*Width, uOffsetY*Height), float2(Width, Height))];
+}

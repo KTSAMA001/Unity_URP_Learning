@@ -1,0 +1,22 @@
+/*
+ * @file    Pow.compute
+ * @author  Leo Chaumartin
+ */
+
+
+#pragma kernel Pow
+float Width;
+float Height;
+
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+float uPower;
+
+[numthreads(8,8,1)]
+void Pow(uint3 id : SV_DispatchThreadID)
+{
+	if(uPower >= 0)
+		Output[id.xy] = pow(abs(Input[id.xy]), uPower);
+}

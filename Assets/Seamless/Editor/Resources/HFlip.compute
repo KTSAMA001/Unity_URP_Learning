@@ -1,0 +1,20 @@
+/*
+ * @file    HFlip.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel HFlip
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+[numthreads(8,8,1)]
+void HFlip(uint3 id : SV_DispatchThreadID)
+{
+    
+    Output[id.xy] = Input[float2(Width - id.x - 1, id.y)];
+}

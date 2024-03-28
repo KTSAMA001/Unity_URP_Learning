@@ -1,0 +1,18 @@
+/*
+ * @file    Merge.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Merge
+
+Texture2D<float4> R;
+Texture2D<float4> G;
+Texture2D<float4> B;
+Texture2D<float4> A;
+RWTexture2D<float4> Output;
+
+[numthreads(8,8,1)]
+void Merge(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = float4(R[id.xy].r, G[id.xy].r, B[id.xy].r, A[id.xy].r);
+}

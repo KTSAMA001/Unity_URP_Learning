@@ -1,0 +1,97 @@
+ /*
+ * @file    Voronoi.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Voronoi
+
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+
+RWTexture2D<float4> Gems;
+RWTexture2D<float4> Cracks;
+RWTexture2D<float4> Code;
+RWTexture2D<float4> Cells;
+Texture2D<float4> Warp;
+
+
+int uSeed;
+float uThickness;
+float uHardness;
+float uPanX;
+float uPanY;
+float uScaleX;
+float uScaleY;
+
+
+float2 Hash2(float2 p, float aSeed) {
+    p = float2(dot(p, float2(127.1, 311.7)), dot(p, float2(269.5, 183.3)));
+    return frac(sin(p) * (aSeed + 43758.5453));
+}
+
+float4 VoronoiUltimate(float2 x, float2 aTiling, float2 aEdges, float aSeed)
+{
+    x *= aTiling;
+    float2 p = floor(x);
+    float2  f = frac(x);
+
+    float2 mb = float2(0.0, 0.0);
+    float2 mr = float2(0.0, 0.0);
+    float i=0.0, j=0.0;
+    float res = 8.0;
+    for( j=-1.0; j<=1.0; j+=1.0 )
+    for( i=-1.0; i<=1.0; i+=1.0 )
+    {
+        float2 b = float2( i, j );
+        float2  r = b + Hash2( mod(p + b, aTiling), aSeed ) - f;
+        float d = dot(r,r);
+
+        if( d < res )
+        {
+            res = d;
+            mr = r;
+            mb = b;
+        }
+    }
+
+    float va = 0;
+	float wt = 0;
+    float cells = 1.0e10;
+    res = 8.0;
+    for( j=-2.0; j<=2.0; j+=1.0 )
+    for( i=-2.0; i<=2.0; i+=1.0 )
+    {
+        float2 b = mb + float2( i, j );
+        float2  o = Hash2( mod(p + b, aTiling), aSeed );
+        float2  r = float2( b ) + o - f;
+        float d = dot( 0.5*(mr+r), normalize(r-mr) );
+        float drr = dot(r, r);
+        if (d < res)
+            res = d;
+        if(drr < cells)
+            cells = drr;
+		float ww = pow(abs(1.0 - smoothstep(0.0, 1.414, sqrt(drr))), 64.0);
+		va      += o.y*ww;
+		wt      += ww;
+    }
+
+    float border = 1.0 - smoothstep( aEdges.x, aEdges.y, res );
+    float eschema = va / wt;
+    return float4(res, border, eschema, 1.0 - cells);
+}
+
+[numthreads(8,8,1)]
+void Voronoi(uint3 id : SV_DispatchThreadID)
+{
+    float2 w = Warp[id.xy].xy - float2(.5, .5);
+    float2 lUV = (float2(id.xy) / float2(Width, Height)) + w;
+    float4 lPattern = VoronoiUltimate(mod(lUV + float2(uPanX, uPanY), float2(1.0, 1.0)), float2(uScaleX, uScaleY), float2(uHardness, uThickness), float(uSeed));
+    Gems[id.xy] = float4(float3(lPattern.x, lPattern.x, lPattern.x), 1.0);
+    Cracks[id.xy] = float4(float3(lPattern.y, lPattern.y, lPattern.y), 1.0);
+    Code[id.xy] = float4(float3(lPattern.z, lPattern.z, lPattern.z), 1.0);
+    Cells[id.xy] = float4(float3(lPattern.w, lPattern.w, lPattern.w), 1.0);
+}
+

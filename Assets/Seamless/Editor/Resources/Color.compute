@@ -1,0 +1,12 @@
+#pragma kernel Color
+
+float Width;
+float Height;
+float4 color;
+RWTexture2D<float4> Output;
+
+[numthreads(8,8,1)]
+void Color (uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = color;
+}

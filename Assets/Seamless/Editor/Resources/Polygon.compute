@@ -1,0 +1,36 @@
+/*
+ * @file    Polygon.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Polygon
+
+float Width;
+float Height;
+
+#define M_PI 3.1415926535897932384626433832795
+#define M_TWO_PI 6.28318530718
+
+
+RWTexture2D<float4> Output;
+int uSides;
+float uFalloff;
+float uScaleX;
+float uScaleY;
+
+[numthreads(8,8,1)]
+void Polygon(uint3 id : SV_DispatchThreadID)
+{
+    //float2 lUV = (float2(id.xy) / float2(Width, Height));
+    float2 lImageSize = float2(Width, Height);     
+    float2 st = (float2(id.x, id.y) - 0.5f * lImageSize) / lImageSize;
+    st.x *= 2.0 - uScaleX;
+    st.y *= 2.0 - uScaleY;
+    st.y -= (uSides == 3) ? 0.25f : 0.0f;
+    float ata = atan2(st.x, -st.y) + M_PI;
+    float r = M_TWO_PI / float(uSides);
+    float dist = cos(floor(.5f + ata / r) * r - ata) *length(st);
+    float polygon = 1.0f - smoothstep(.5f - uFalloff, 0.5f, dist);
+    float4 lOutputColor = float4(float3(polygon, polygon, polygon), 1.0);
+    Output[id.xy] = clamp(lOutputColor, 0.0, 1.0);
+}

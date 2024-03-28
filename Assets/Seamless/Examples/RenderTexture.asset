@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1678850157, guid: ede9f12173208bc41b05f96939f0c882, type: 3}
+  m_Name: RenderTexture
+  m_EditorClassIdentifier: 
+  data: 'SeamlessGraph
+
+    RenderTexture;{"name":"RenderTexture","position":{"x":459.072021484375,"y":188.281494140625},"size":{"x":201.88571166992188,"y":235.88571166992188},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":0}}],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":46,"needsReload":false,"rt":{"instanceID":0}}
+
+    Spherize;{"name":"Spherize","position":{"x":704.5970458984375,"y":211.1751251220703},"size":{"x":201.88571166992188,"y":189.88571166992188},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-494788}}],"parameters":[],"cs":{"instanceID":4596},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":972.94970703125,"y":339.4617919921875},"size":{"x":201.88571166992188,"y":221.88571166992188},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-494788}},{"name":"B","linkedTex":{"instanceID":-494796}}],"outputs":[{"name":"Output","tex":{"instanceID":-494792}}],"parameters":[{"name":"Multiplier","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4582},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Squircle;{"name":"Squircle","position":{"x":459.03094482421877,"y":429.9364013671875},"size":{"x":201.88571166992188,"y":134.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-494796}}],"parameters":[{"name":"Margins","value":{"x":0.019999999552965165,"y":0.019999999552965165,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Falloff","value":{"x":0.09759999811649323,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Convex","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true}],"cs":{"instanceID":4642},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":94,"needsReload":false}
+
+    Squircle;{"name":"Squircle","position":{"x":462.5278015136719,"y":688.8366088867188},"size":{"x":201.88571166992188,"y":134.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-494800}}],"parameters":[{"name":"Margins","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Falloff","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Convex","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true}],"cs":{"instanceID":4642},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":94,"needsReload":false}
+
+    OneMinus;{"name":"OneMinus","position":{"x":700.4013061523438,"y":627.39013671875},"size":{"x":201.88571166992188,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"Input","linkedTex":{"instanceID":-494800}}],"outputs":[{"name":"Output","tex":{"instanceID":-494804}}],"parameters":[],"cs":{"instanceID":4644},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Squircle;{"name":"Squircle","position":{"x":1196.986083984375,"y":959.4329223632813},"size":{"x":201.88571166992188,"y":134.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-494808}}],"parameters":[{"name":"Margins","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Falloff","value":{"x":0.04960000142455101,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Convex","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true}],"cs":{"instanceID":4642},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":94,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":1439.0943603515625,"y":750.0406494140625},"size":{"x":201.88571166992188,"y":221.88571166992188},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-494816}},{"name":"B","linkedTex":{"instanceID":-494808}}],"outputs":[{"name":"Output","tex":{"instanceID":-494812}}],"parameters":[{"name":"Multiplier","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4582},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Add;{"name":"Add","position":{"x":1151.2152099609375,"y":604.0736694335938},"size":{"x":201.88571166992188,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"A","linkedTex":{"instanceID":-494792}},{"name":"B","linkedTex":{"instanceID":-494820}}],"outputs":[{"name":"Output","tex":{"instanceID":-494816}}],"parameters":[],"cs":{"instanceID":4624},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":966.0777587890625,"y":791.9154052734375},"size":{"x":201.88571166992188,"y":72.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"A","linkedTex":{"instanceID":-494828}},{"name":"B","linkedTex":{"instanceID":-494824}}],"outputs":[{"name":"Output","tex":{"instanceID":-494820}}],"parameters":[{"name":"Multiplier","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4582},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":788.9888916015625,"y":844.7166748046875},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-494824}}],"parameters":[],"cs":{"instanceID":4590},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.12687787413597108,"g":0.2592862844467163,"b":0.4150943160057068,"a":1.0}}
+
+    Multiply;{"name":"Multiply","position":{"x":734.6199951171875,"y":727.67626953125},"size":{"x":201.88571166992188,"y":72.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"A","linkedTex":{"instanceID":-494804}},{"name":"B","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-494828}}],"parameters":[{"name":"Multiplier","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4582},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Links:
+
+    {"fromIndex":1,"fromSubIndex":0,"toIndex":2,"toSubIndex":0}
+
+    {"fromIndex":3,"fromSubIndex":0,"toIndex":2,"toSubIndex":1}
+
+    {"fromIndex":0,"fromSubIndex":0,"toIndex":1,"toSubIndex":0}
+
+    {"fromIndex":4,"fromSubIndex":0,"toIndex":5,"toSubIndex":0}
+
+    {"fromIndex":6,"fromSubIndex":0,"toIndex":7,"toSubIndex":1}
+
+    {"fromIndex":2,"fromSubIndex":0,"toIndex":8,"toSubIndex":0}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":7,"toSubIndex":0}
+
+    {"fromIndex":9,"fromSubIndex":0,"toIndex":8,"toSubIndex":1}
+
+    {"fromIndex":10,"fromSubIndex":0,"toIndex":9,"toSubIndex":1}
+
+    {"fromIndex":5,"fromSubIndex":0,"toIndex":11,"toSubIndex":0}
+
+    {"fromIndex":11,"fromSubIndex":0,"toIndex":9,"toSubIndex":0}
+
+    Preview:
+
+    -1:-1;-1:-1;-1:-1;-1:-1;-1:-1;-1:-1;
+
+'
+  textureSize: {x: 1024, y: 1024}

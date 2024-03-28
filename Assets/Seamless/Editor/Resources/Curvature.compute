@@ -1,0 +1,64 @@
+/*
+ * @file    Curvature.compute
+ * @author  Leo Chaumartin
+ */
+
+
+#pragma kernel Curvature
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+int uRadius;
+
+float GenerateCurviness(int2 aCoord, int2 aTexSize, int aRadius)
+{
+	//determine curviness at each point and return it
+	float curviness = 0.;
+	float vcurviness, hcurviness;
+	float lValueMultiplier = aTexSize.x / 256.0;
+	for (int d = 1; d < (aRadius + 1); d++)
+	{
+		float h = Input[aCoord].r * lValueMultiplier;
+		float hv1 = Input[mod(aCoord - int2(0, d), aTexSize)].r * lValueMultiplier;
+		float hv2 = Input[mod(aCoord + int2(0, d), aTexSize)].r * lValueMultiplier;
+		float hh1 = Input[mod(aCoord - int2(d, 0), aTexSize)].r * lValueMultiplier;
+		float hh2 = Input[mod(aCoord + int2(d, 0), aTexSize)].r * lValueMultiplier;
+
+		if (hv1 < hv2)
+		{
+			vcurviness = (h - hv2) - (hv1 - h);
+		}
+		else
+		{
+			vcurviness = (h - hv1) - (hv2 - h);
+		}
+
+		if (hh1 < hh2)
+		{
+			hcurviness = (h - hh2) - (hh1 - h);
+		}
+		else
+		{
+			hcurviness = (h - hh1) - (hh2 - h);
+		}
+
+		curviness += (vcurviness + hcurviness) / (d * 1.);
+	}
+
+	return curviness;
+}
+
+[numthreads(8, 8, 1)]
+void Curvature(uint3 id : SV_DispatchThreadID)
+{
+	//float2 lUV = (float2(id.xy) / float2(Width, Height));
+	int2 lTexSize = int2(Width, Height);
+	float c = GenerateCurviness(id.xy, lTexSize, uRadius);
+	const float4 lOutputColor = float4(float3(c, c, c) + uRadius/20.0, Input[id.xy].a);
+	Output[id.xy] = lOutputColor;
+}

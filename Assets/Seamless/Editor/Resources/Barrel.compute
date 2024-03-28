@@ -1,0 +1,30 @@
+/*
+ * @file    Barrel.compute
+ * @author  Leo Chaumartin
+ */
+#pragma kernel Barrel
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+float uPower;
+
+float2 Distort(float2 p)
+{
+    float theta = atan2(p.y, p.x);
+    float radius = length(p);
+    radius = pow(radius, uPower);
+    p.x = radius * cos(theta);
+    p.y = radius * sin(theta);
+    return 0.5 * (p + 1.0);
+}
+
+[numthreads(8,8,1)]
+void Barrel(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = Input[mod(Distort(id.xy/float2(0.5*Width, 0.5*Height) - float2(1.0, 1.0)) * float2(Width, Height), float2(Width, Height))];
+}

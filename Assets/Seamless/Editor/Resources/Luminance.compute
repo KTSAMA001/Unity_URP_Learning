@@ -1,0 +1,16 @@
+/*
+ * @file    Luminance.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Luminance
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+[numthreads(8,8,1)]
+void Luminance(uint3 id : SV_DispatchThreadID)
+{
+    float lum = dot(Input[id.xy].rgb, float3(0.299f, 0.587f, 0.114f));
+    Output[id.xy] = float4(lum, lum, lum, Input[id.xy].a);
+}

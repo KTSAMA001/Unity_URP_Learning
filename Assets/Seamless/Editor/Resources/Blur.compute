@@ -1,0 +1,33 @@
+/*
+ * @file    Blur.compute
+ * @author  Leo Chaumartin
+ */
+
+
+#pragma kernel Blur
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+float  uRadius;
+int uSteps;
+
+
+[numthreads(8,8,1)]
+void Blur(uint3 id : SV_DispatchThreadID)
+{
+    float4 c = float4(0.0, 0.0, 0.0, 0.0);
+    float count = 0.0;
+    for (float i = -uRadius; i <= uRadius; i+=uRadius/float(uSteps)) {
+
+        for (float j = -uRadius; j <= uRadius; j += uRadius / float(uSteps)) {
+            c += Input[mod(id.xy + float2(i*Width, j*Height), float2(Width, Height))];
+            count += 1;
+        }
+    }
+    Output[id.xy] = c / count;
+}

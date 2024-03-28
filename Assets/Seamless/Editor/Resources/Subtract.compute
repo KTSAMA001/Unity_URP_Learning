@@ -1,0 +1,13 @@
+#pragma kernel Subtract
+
+float Width;
+float Height;
+Texture2D<float4> A;
+Texture2D<float4> B;
+RWTexture2D<float4> Output;
+
+[numthreads(8,8,1)]
+void Subtract(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = float4(float3(A[id.xy].xyz - B[id.xy].xyz), A[id.xy].a);
+}

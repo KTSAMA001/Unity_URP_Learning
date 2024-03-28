@@ -1,0 +1,28 @@
+/*
+ * @file    Step.compute
+ * @author  Leo Chaumartin
+ */
+
+
+#pragma kernel Step
+float Width;
+float Height;
+
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+float uEdge;
+
+
+
+[numthreads(8,8,1)]
+void Step(uint3 id : SV_DispatchThreadID)
+{
+    //float2 lUV = (float2(id.xy) / float2(Width, Height));
+    float4 lInputColor = Input[id.xy];
+
+    const float4 lOutputColor = float4(step(uEdge, lInputColor.xyz), 1.0);
+    Output[id.xy] = lOutputColor;
+}
+ 

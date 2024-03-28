@@ -1,0 +1,13 @@
+#pragma kernel Divide
+
+float Width;
+float Height;
+Texture2D<float4> A;
+Texture2D<float4> B;
+RWTexture2D<float4> Output;
+
+[numthreads(8,8,1)]
+void Divide(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = A[id.xy] / B[id.xy];
+}

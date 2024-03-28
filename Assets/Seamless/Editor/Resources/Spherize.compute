@@ -1,0 +1,21 @@
+/*
+ * @file    Spherize.compute
+ * @author  Leo Chaumartin
+ */
+#pragma kernel Spherize
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+[numthreads(8,8,1)]
+void Spherize(uint3 id : SV_DispatchThreadID)
+{
+    float2 lUV = id.xy / float2(Width, Height) * 2.0 - 1.0;
+    lUV = lerp(lUV, normalize(lUV) * (2.0 * asin(length(lUV)) / 3.1415926), 0.5);
+    lUV = normalize(lUV) * (2.0 * asin(length(lUV)) / 3.1415926);
+    Output[id.xy] = Input[(lUV + 1.0) * float2(Width / 2.0, Height / 2.0)];
+}

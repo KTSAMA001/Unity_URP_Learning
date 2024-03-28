@@ -1,0 +1,19 @@
+/*
+ * @file    Hash.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Hash
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+float hashf(float p) {
+    p = float(p * 127.1);
+    return frac(sin(p) * (43758.5453));
+}
+[numthreads(8,8,1)]
+void Hash(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = float4(hashf(Input[id.xy].r*255), hashf(Input[id.xy].g*255), hashf(Input[id.xy].b*255), Input[id.xy].a);
+}

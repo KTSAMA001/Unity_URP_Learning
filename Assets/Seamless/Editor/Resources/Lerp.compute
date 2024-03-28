@@ -1,0 +1,15 @@
+#pragma kernel Lerp
+
+float Width;
+float Height;
+Texture2D<float4> A;
+Texture2D<float4> B;
+Texture2D<float4> T;
+RWTexture2D<float4> Output;
+
+[numthreads(8,8,1)]
+void Lerp (uint3 id : SV_DispatchThreadID)
+{
+    float4 t = T[id.xy];
+    Output[id.xy] = A[id.xy] * (1.0 - t)  + B[id.xy] * t;
+}

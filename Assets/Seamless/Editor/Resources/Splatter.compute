@@ -1,0 +1,83 @@
+#pragma kernel Splatter
+
+#include "Common.hlsl"
+
+float Width;
+float Height;
+Texture2D<float4> Input;
+RWTexture2D<float4> Output;
+
+float uGridSizeX;
+float uGridSizeY;
+float uRotation;
+float uDisparityX;
+float uDisparityY;
+float uDensity;
+float uScaleRangeX;
+float uScaleRangeY;
+int uSeed;
+
+
+
+float rand_xorshift(float2 guv, float aSeed)
+{
+    uint rng_state = uint(guv.x+12) * (43 + uint((uSeed + aSeed)*456789)) + uint(guv.y) * (311 + uint(guv.x + uint(aSeed + uSeed)));
+
+    rng_state ^= (rng_state << 13);
+    rng_state ^= (rng_state >> 17);
+    rng_state ^= (rng_state << 5);
+
+    rng_state ^= (rng_state << 13);
+    rng_state ^= (rng_state >> 17);
+    rng_state ^= (rng_state << 5);
+
+    rng_state ^= (rng_state << 13);
+    rng_state ^= (rng_state >> 17);
+    rng_state ^= (rng_state << 5);
+
+    return rng_state / 4294967296.0;
+}
+float2 Hash2(float2 p) {
+    return float2(rand_xorshift(p, 0), rand_xorshift(p, 1));
+}
+
+float random(float2 coord) {
+    float2 ff =  frac((coord * float2(98789.32125, 99999.99141) + float2(213.14963, -1234.009)));
+    return frac(sin(dot(ff, float2(123.321, -98.89) + coord)));
+}
+
+float2 GetBias(float2 uv) {
+    return (Hash2(uv)- 0.5)*float2(uDisparityX, uDisparityY);
+}
+
+[numthreads(8,8,1)]
+void Splatter (uint3 id : SV_DispatchThreadID)
+{
+    float2 uv = float2(id.x * uGridSizeX / Width, id.y * uGridSizeY / Height);
+    Output[id.xy] = float4(0.0, 0.0, 0.0, 1.0); //Background
+
+    //Going from -1 to gridsize + 1 to make it tilable
+    for (int i = -2; i < uGridSizeX + 2; i++) {
+        for (int j = -1; j < uGridSizeY + 1; j++) {
+            float2 cell = float2(i, j);
+            float2 cellUv = float2(uv - cell);
+            cellUv += GetBias(mod(cell, float2(uGridSizeX, uGridSizeY)));
+            cellUv -= float2(0.5, 0.5);
+            float scale = rand_xorshift(mod(cell, float2(uGridSizeX, uGridSizeY)), 0) * (uScaleRangeY - uScaleRangeX) + uScaleRangeX;
+            cellUv /= scale;
+            float angle = (rand_xorshift(mod(cell, float2(uGridSizeX, uGridSizeY)), 20) *2.0 - 1.0) * 3.14159 * uRotation;
+            float s = sin(angle), c = cos(angle);
+            float2x2 rot = float2x2(c, -s, s, c);
+            cellUv = mul(rot, cellUv);
+            cellUv += float2(0.5, 0.5);
+            if (cellUv.x < 1 &&
+                cellUv.x >= 0 &&
+                cellUv.y <  1 &&
+                cellUv.y >= 0 &&
+                uDensity > rand_xorshift(mod(cell, float2(uGridSizeX, uGridSizeY)), 10))
+            {
+                Output[id.xy] += Input[cellUv * float2(Width, Height)];
+            }
+        }
+    }
+}

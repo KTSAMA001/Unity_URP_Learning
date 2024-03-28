@@ -1,0 +1,27 @@
+/*
+ * @file    Rotate.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Rotate
+#include "Common.hlsl"
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+float uAngle;
+
+[numthreads(8,8,1)]
+void Rotate(uint3 id : SV_DispatchThreadID)
+{
+    float Rotation = uAngle * 0.01745329251;
+    float2 UV = (id.xy / float2(Width, Height) - float2(0.5, 0.5));
+    float s = sin(Rotation);
+    float c = cos(Rotation);
+    float2x2 rMatrix = float2x2(c, -s, s, c);
+    UV.xy = mul(UV.xy, rMatrix);
+    UV += float2(0.5, 0.5);
+    Output[id.xy] = Input[mod(UV, float2(1.0, 1.0))* float2(Width , Height)];
+}

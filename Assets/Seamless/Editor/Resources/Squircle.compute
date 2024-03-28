@@ -1,0 +1,31 @@
+/*
+ * @file    Squircle.compute
+ * @author  Leo Chaumartin
+ * @notes   https://thndl.com/going-round-in-squircles.html
+ */
+
+#pragma kernel Squircle
+
+float Width;
+float Height;
+float uMarginsX;
+float uMarginsY;
+float uFalloff;
+float uConvex;
+
+RWTexture2D<float4> Output;
+
+
+[numthreads(8,8,1)]
+void Squircle(uint3 id : SV_DispatchThreadID) 
+{
+    float2 lUV = (float2(id.xy) / float2(Width, Height));
+    float2 c = (lUV - 0.5) * 2.0; //remap from 0->1 to -1 -> 1
+    c = abs(c);
+    c *= (1.0 + float2(uMarginsX, uMarginsY));
+    c = abs(pow(abs(c.xy), float2(uConvex, uConvex)));
+    float f = 1.0 - length(c);
+    f = smoothstep(0.0, uFalloff, f);
+    float4 lOutputColor = float4(float3(f, f, f), 1.0);
+    Output[id.xy] = clamp(lOutputColor, 0.0, 1.0); 
+}

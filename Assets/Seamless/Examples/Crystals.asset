@@ -1,0 +1,244 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1678850157, guid: ede9f12173208bc41b05f96939f0c882, type: 3}
+  m_Name: Crystals
+  m_EditorClassIdentifier: 
+  data: 'SeamlessGraph
+
+    Export;{"name":"Export","position":{"x":771.6229248046875,"y":296.1748962402344},"size":{"x":400.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601622}}],"outputs":[],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"path":"Assets/Seamless/Examples/Export/Crystals_Albedo.png"}
+
+    Voronoi;{"name":"Voronoi","position":{"x":-1706.662353515625,"y":-146.23001098632813},"size":{"x":200.7218780517578,"y":344.7218933105469},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Warp","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Cells","tex":{"instanceID":-1601586}},{"name":"Gems","tex":{"instanceID":-1601588}},{"name":"Cracks","tex":{"instanceID":-1601590}},{"name":"Code","tex":{"instanceID":-1601592}}],"parameters":[{"name":"Thickness","value":{"x":0.04410000145435333,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Hardness","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Pan","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Scale","value":{"x":24.0,"y":24.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Seed","value":{"x":14.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":false}],"cs":{"instanceID":4930},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":156,"needsReload":false}
+
+    Merge;{"name":"Merge","position":{"x":-490.6013488769531,"y":-168.99142456054688},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"R","linkedTex":{"instanceID":-1601756}},{"name":"G","linkedTex":{"instanceID":-1601600}},{"name":"B","linkedTex":{"instanceID":-1601756}},{"name":"A","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601596}}],"parameters":[],"cs":{"instanceID":4920},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":-728.9476928710938,"y":-246.19752502441407},"size":{"x":200.7218780517578,"y":72.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601586}},{"name":"B","linkedTex":{"instanceID":-1601604}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601600}}],"parameters":[{"name":"Multiplier","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4888},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    OneMinus;{"name":"OneMinus","position":{"x":-972.6851196289063,"y":-195.22647094726563},"size":{"x":200.7218780517578,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601592}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601604}}],"parameters":[],"cs":{"instanceID":4946},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":-14.23692512512207,"y":-193.15199279785157},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601596}},{"name":"B","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601608}}],"parameters":[{"name":"Multiplier","value":{"x":0.5,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4888},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Export;{"name":"Export","position":{"x":790.3656616210938,"y":1322.45849609375},"size":{"x":400.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601716}}],"outputs":[],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"path":"Assets/Seamless/Examples/Export/Crystals_Emission.png"}
+
+    FractalNoise;{"name":"FractalNoise","position":{"x":-1939.85693359375,"y":1091.05615234375},"size":{"x":200.7218780517578,"y":400.7218933105469},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Warp","linkedTex":{"instanceID":-1601638}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601614}}],"parameters":[{"name":"Lacunarity","value":{"x":2.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Gain","value":{"x":0.5181999802589417,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Octaves","value":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":true},{"name":"Voronoi","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Blur","value":{"x":0.4521999955177307,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Pan","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Scale","value":{"x":12.0,"y":12.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false}],"cs":{"instanceID":4938},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":212,"needsReload":false}
+
+    Step;{"name":"Step","position":{"x":-869.6492309570313,"y":699.7208862304688},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601744}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601618}}],"parameters":[{"name":"Edge","value":{"x":0.47609999775886538,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true}],"cs":{"instanceID":4884},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":297.8809509277344,"y":205.93336486816407},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601608}},{"name":"B","linkedTex":{"instanceID":-1601692}},{"name":"T","linkedTex":{"instanceID":-1601618}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601622}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":-803.8323974609375,"y":1095.043212890625},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601626}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.0,"g":0.0,"b":0.0,"a":0.30588236451148989}}
+
+    Normal;{"name":"Normal","position":{"x":-874.64111328125,"y":1249.977783203125},"size":{"x":200.7218780517578,"y":72.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601656}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601630}}],"parameters":[{"name":"Scale","value":{"x":10.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4892},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    FractalNoise;{"name":"FractalNoise","position":{"x":-2631.67578125,"y":1217.6826171875},"size":{"x":200.7218780517578,"y":400.7218933105469},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Warp","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601634}}],"parameters":[{"name":"Lacunarity","value":{"x":2.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Gain","value":{"x":0.8655999898910523,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Octaves","value":{"x":4.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":true},{"name":"Voronoi","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Blur","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Pan","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Scale","value":{"x":18.0,"y":18.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false}],"cs":{"instanceID":4938},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":212,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":-2286.608154296875,"y":1339.447998046875},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601634}},{"name":"B","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601638}}],"parameters":[{"name":"Multiplier","value":{"x":0.43959999084472659,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4888},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Preview;{"name":"Preview","position":{"x":-872.5177001953125,"y":1330.346923828125},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601656}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601642}}],"parameters":[],"cs":{"instanceID":4924},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Voronoi;{"name":"Voronoi","position":{"x":-1899.35986328125,"y":1639.708251953125},"size":{"x":200.7218780517578,"y":196.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"Warp","linkedTex":{"instanceID":-1601672}}],"outputs":[{"name":"Cells","tex":{"instanceID":-1601646}},{"name":"Gems","tex":{"instanceID":-1601648}},{"name":"Cracks","tex":{"instanceID":-1601650}},{"name":"Code","tex":{"instanceID":-1601652}}],"parameters":[{"name":"Thickness","value":{"x":0.05000000074505806,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Hardness","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Pan","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Scale","value":{"x":4.0,"y":4.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Seed","value":{"x":21.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":false}],"cs":{"instanceID":4930},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":156,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":-1597.95947265625,"y":1256.7744140625},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601614}},{"name":"B","linkedTex":{"instanceID":-1601648}},{"name":"T","linkedTex":{"instanceID":-1601660}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601656}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":-1805.234130859375,"y":1522.48876953125},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601660}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.38679248094558718,"g":0.38679248094558718,"b":0.38679248094558718,"a":0.0}}
+
+    Rotate;{"name":"Rotate","position":{"x":-2289.447998046875,"y":1766.94677734375},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601638}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601664}}],"parameters":[{"name":"Angle","value":{"x":90.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":-180.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":180.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true}],"cs":{"instanceID":4942},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    TilingOffset;{"name":"TilingOffset","position":{"x":-2290.37255859375,"y":1992.422607421875},"size":{"x":200.7218780517578,"y":260.7218933105469},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601664}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601668}}],"parameters":[{"name":"Offset","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Tiling","value":{"x":2.0,"y":2.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false}],"cs":{"instanceID":4882},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":72,"needsReload":false}
+
+    Blur;{"name":"Blur","position":{"x":-2068.516357421875,"y":1964.6917724609375},"size":{"x":200.7218780517578,"y":248.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601668}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601672}}],"parameters":[{"name":"Radius","value":{"x":0.00419999985024333,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0010000000474974514,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.10000000149011612,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Steps","value":{"x":16.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":16.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":true}],"cs":{"instanceID":4906},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":60,"needsReload":false}
+
+    Curvature;{"name":"Curvature","position":{"x":-873.056640625,"y":1531.948974609375},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601656}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601676}}],"parameters":[{"name":"Radius","value":{"x":11.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":20.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":true}],"cs":{"instanceID":4904},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":-1301.365478515625,"y":1123.53662109375},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601680}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.6320754289627075,"g":0.58478182554245,"b":0.55097895860672,"a":0.0}}
+
+    Color;{"name":"Color","position":{"x":-1298.6829833984375,"y":1060.2294921875},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601684}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.5377358198165894,"g":0.42294153571128847,"b":0.3368458151817322,"a":0.0}}
+
+    Lerp;{"name":"Lerp","position":{"x":-1108.7315673828125,"y":1159.375244140625},"size":{"x":200.7218780517578,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601684}},{"name":"B","linkedTex":{"instanceID":-1601680}},{"name":"T","linkedTex":{"instanceID":-1601614}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601688}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":-871.734130859375,"y":1179.936279296875},"size":{"x":200.7218780517578,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601696}},{"name":"B","linkedTex":{"instanceID":-1601688}},{"name":"T","linkedTex":{"instanceID":-1601634}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601692}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":-1035.9796142578125,"y":1092.34375},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601696}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.8207547068595886,"g":0.7112303972244263,"b":0.630277693271637,"a":0.0}}
+
+    Lerp;{"name":"Lerp","position":{"x":298.2535095214844,"y":414.9966125488281},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601720}},{"name":"B","linkedTex":{"instanceID":-1601630}},{"name":"T","linkedTex":{"instanceID":-1601618}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601700}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":306.12841796875,"y":627.6254272460938},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601728}},{"name":"B","linkedTex":{"instanceID":-1601626}},{"name":"T","linkedTex":{"instanceID":-1601736}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601704}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":317.9411315917969,"y":844.191650390625},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601752}},{"name":"B","linkedTex":{"instanceID":-1601642}},{"name":"T","linkedTex":{"instanceID":-1601618}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601708}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":317.9410095214844,"y":1060.75830078125},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601724}},{"name":"B","linkedTex":{"instanceID":-1601676}},{"name":"T","linkedTex":{"instanceID":-1601618}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601712}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Lerp;{"name":"Lerp","position":{"x":314.00360107421877,"y":1273.3875732421875},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601608}},{"name":"B","linkedTex":{"instanceID":-1601626}},{"name":"T","linkedTex":{"instanceID":-1601618}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601716}}],"parameters":[],"cs":{"instanceID":4928},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Normal;{"name":"Normal","position":{"x":-489.0559387207031,"y":49.473140716552737},"size":{"x":200.7218780517578,"y":72.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601752}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601720}}],"parameters":[{"name":"Scale","value":{"x":10.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4892},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Curvature;{"name":"Curvature","position":{"x":-488.0752258300781,"y":129.37625122070313},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601752}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601724}}],"parameters":[{"name":"Radius","value":{"x":5.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":20.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":true}],"cs":{"instanceID":4904},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Merge;{"name":"Merge","position":{"x":-791.3843994140625,"y":441.78643798828127},"size":{"x":200.7218780517578,"y":188.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"R","linkedTex":{"instanceID":-1601732}},{"name":"G","linkedTex":{"instanceID":-1601732}},{"name":"B","linkedTex":{"instanceID":-1601732}},{"name":"A","linkedTex":{"instanceID":-1601586}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601728}}],"parameters":[],"cs":{"instanceID":4920},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":-1244.2138671875,"y":352.5643310546875},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601732}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}
+
+    Merge;{"name":"Merge","position":{"x":-868.41455078125,"y":928.4031372070313},"size":{"x":200.7218780517578,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"R","linkedTex":{"instanceID":-1601618}},{"name":"G","linkedTex":{"instanceID":-1601618}},{"name":"B","linkedTex":{"instanceID":-1601618}},{"name":"A","linkedTex":{"instanceID":-1601618}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601736}}],"parameters":[],"cs":{"instanceID":4920},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    FractalWarp;{"name":"FractalWarp","position":{"x":-1571.974853515625,"y":699.9136962890625},"size":{"x":200.7218780517578,"y":400.7218933105469},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Warp","linkedTex":{"instanceID":0}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601740}}],"parameters":[{"name":"Lacunarity","value":{"x":2.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Gain","value":{"x":0.4284000098705292,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Octaves","value":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":8.0,"y":0.0,"z":0.0,"w":0.0},"type":0,"hasMinMax":true},{"name":"Voronoi","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Blur","value":{"x":0.5616000294685364,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true},{"name":"Pan","value":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false},{"name":"Scale","value":{"x":4.0,"y":4.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":5,"hasMinMax":false}],"cs":{"instanceID":4922},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":212,"needsReload":false}
+
+    Multiply;{"name":"Multiply","position":{"x":-1158.6416015625,"y":681.6199951171875},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"A","linkedTex":{"instanceID":-1601748}},{"name":"B","linkedTex":{"instanceID":-1601740}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601744}}],"parameters":[{"name":"Multiplier","value":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":false}],"cs":{"instanceID":4888},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    Step;{"name":"Step","position":{"x":-1388.3934326171875,"y":415.356201171875},"size":{"x":200.7218780517578,"y":220.7218780517578},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601592}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601748}}],"parameters":[{"name":"Edge","value":{"x":0.18479999899864198,"y":0.0,"z":0.0,"w":0.0},"min":{"x":0.0,"y":0.0,"z":0.0,"w":0.0},"max":{"x":1.0,"y":0.0,"z":0.0,"w":0.0},"type":4,"hasMinMax":true}],"cs":{"instanceID":4884},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":32,"needsReload":false}
+
+    OneMinus;{"name":"OneMinus","position":{"x":-973.2908935546875,"y":186.2268829345703},"size":{"x":200.7218780517578,"y":40.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":false,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601588}}],"outputs":[{"name":"Output","tex":{"instanceID":-1601752}}],"parameters":[],"cs":{"instanceID":4946},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false}
+
+    Color;{"name":"Color","position":{"x":-1037.8524169921875,"y":-10.781953811645508},"size":{"x":127.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[],"outputs":[{"name":"Output","tex":{"instanceID":-1601756}}],"parameters":[],"cs":{"instanceID":4896},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0}}
+
+    Export;{"name":"Export","position":{"x":774.351806640625,"y":467.490478515625},"size":{"x":400.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601700}}],"outputs":[],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"path":"Assets/Seamless/Examples/Export/Crystals_Normal.png"}
+
+    Export;{"name":"Export","position":{"x":755.9103393554688,"y":905.6875610351563},"size":{"x":400.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601708}}],"outputs":[],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"path":"Assets/Seamless/Examples/Export/Crystals_Height.png"}
+
+    Export;{"name":"Export","position":{"x":754.9285278320313,"y":695.5963134765625},"size":{"x":400.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601704}}],"outputs":[],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"path":"Assets/Seamless/Examples/Export/Crystals_MetalGloss.png"}
+
+    Export;{"name":"Export","position":{"x":774.3145141601563,"y":1136.491943359375},"size":{"x":400.0,"y":58.0},"pressed":false,"dragged":false,"selected":false,"dirty":false,"extended":true,"inputs":[{"name":"Input","linkedTex":{"instanceID":-1601712}}],"outputs":[],"parameters":[],"cs":{"instanceID":0},"textureSize":{"x":1024.0,"y":1024.0},"settingsHeight":0,"needsReload":false,"path":"Assets/Seamless/Examples/Export/Crystals_AO.png"}
+
+    Links:
+
+    {"fromIndex":1,"fromSubIndex":3,"toIndex":4,"toSubIndex":0}
+
+    {"fromIndex":4,"fromSubIndex":0,"toIndex":3,"toSubIndex":1}
+
+    {"fromIndex":1,"fromSubIndex":0,"toIndex":3,"toSubIndex":0}
+
+    {"fromIndex":2,"fromSubIndex":0,"toIndex":5,"toSubIndex":0}
+
+    {"fromIndex":12,"fromSubIndex":0,"toIndex":13,"toSubIndex":0}
+
+    {"fromIndex":13,"fromSubIndex":0,"toIndex":7,"toSubIndex":0}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":9,"toSubIndex":2}
+
+    {"fromIndex":5,"fromSubIndex":0,"toIndex":9,"toSubIndex":0}
+
+    {"fromIndex":7,"fromSubIndex":0,"toIndex":16,"toSubIndex":0}
+
+    {"fromIndex":15,"fromSubIndex":1,"toIndex":16,"toSubIndex":1}
+
+    {"fromIndex":16,"fromSubIndex":0,"toIndex":11,"toSubIndex":0}
+
+    {"fromIndex":16,"fromSubIndex":0,"toIndex":14,"toSubIndex":0}
+
+    {"fromIndex":17,"fromSubIndex":0,"toIndex":16,"toSubIndex":2}
+
+    {"fromIndex":18,"fromSubIndex":0,"toIndex":19,"toSubIndex":0}
+
+    {"fromIndex":13,"fromSubIndex":0,"toIndex":18,"toSubIndex":0}
+
+    {"fromIndex":19,"fromSubIndex":0,"toIndex":20,"toSubIndex":0}
+
+    {"fromIndex":20,"fromSubIndex":0,"toIndex":15,"toSubIndex":0}
+
+    {"fromIndex":16,"fromSubIndex":0,"toIndex":21,"toSubIndex":0}
+
+    {"fromIndex":23,"fromSubIndex":0,"toIndex":24,"toSubIndex":0}
+
+    {"fromIndex":22,"fromSubIndex":0,"toIndex":24,"toSubIndex":1}
+
+    {"fromIndex":7,"fromSubIndex":0,"toIndex":24,"toSubIndex":2}
+
+    {"fromIndex":12,"fromSubIndex":0,"toIndex":25,"toSubIndex":2}
+
+    {"fromIndex":26,"fromSubIndex":0,"toIndex":25,"toSubIndex":0}
+
+    {"fromIndex":24,"fromSubIndex":0,"toIndex":25,"toSubIndex":1}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":27,"toSubIndex":2}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":29,"toSubIndex":2}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":31,"toSubIndex":2}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":30,"toSubIndex":2}
+
+    {"fromIndex":25,"fromSubIndex":0,"toIndex":9,"toSubIndex":1}
+
+    {"fromIndex":32,"fromSubIndex":0,"toIndex":27,"toSubIndex":0}
+
+    {"fromIndex":11,"fromSubIndex":0,"toIndex":27,"toSubIndex":1}
+
+    {"fromIndex":10,"fromSubIndex":0,"toIndex":28,"toSubIndex":1}
+
+    {"fromIndex":5,"fromSubIndex":0,"toIndex":31,"toSubIndex":0}
+
+    {"fromIndex":14,"fromSubIndex":0,"toIndex":29,"toSubIndex":1}
+
+    {"fromIndex":21,"fromSubIndex":0,"toIndex":30,"toSubIndex":1}
+
+    {"fromIndex":10,"fromSubIndex":0,"toIndex":31,"toSubIndex":1}
+
+    {"fromIndex":33,"fromSubIndex":0,"toIndex":30,"toSubIndex":0}
+
+    {"fromIndex":1,"fromSubIndex":0,"toIndex":34,"toSubIndex":3}
+
+    {"fromIndex":35,"fromSubIndex":0,"toIndex":34,"toSubIndex":0}
+
+    {"fromIndex":35,"fromSubIndex":0,"toIndex":34,"toSubIndex":1}
+
+    {"fromIndex":35,"fromSubIndex":0,"toIndex":34,"toSubIndex":2}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":36,"toSubIndex":0}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":36,"toSubIndex":1}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":36,"toSubIndex":2}
+
+    {"fromIndex":8,"fromSubIndex":0,"toIndex":36,"toSubIndex":3}
+
+    {"fromIndex":36,"fromSubIndex":0,"toIndex":28,"toSubIndex":2}
+
+    {"fromIndex":34,"fromSubIndex":0,"toIndex":28,"toSubIndex":0}
+
+    {"fromIndex":37,"fromSubIndex":0,"toIndex":38,"toSubIndex":1}
+
+    {"fromIndex":38,"fromSubIndex":0,"toIndex":8,"toSubIndex":0}
+
+    {"fromIndex":1,"fromSubIndex":3,"toIndex":39,"toSubIndex":0}
+
+    {"fromIndex":39,"fromSubIndex":0,"toIndex":38,"toSubIndex":0}
+
+    {"fromIndex":1,"fromSubIndex":1,"toIndex":40,"toSubIndex":0}
+
+    {"fromIndex":40,"fromSubIndex":0,"toIndex":32,"toSubIndex":0}
+
+    {"fromIndex":40,"fromSubIndex":0,"toIndex":33,"toSubIndex":0}
+
+    {"fromIndex":40,"fromSubIndex":0,"toIndex":29,"toSubIndex":0}
+
+    {"fromIndex":3,"fromSubIndex":0,"toIndex":2,"toSubIndex":1}
+
+    {"fromIndex":41,"fromSubIndex":0,"toIndex":2,"toSubIndex":0}
+
+    {"fromIndex":41,"fromSubIndex":0,"toIndex":2,"toSubIndex":2}
+
+    {"fromIndex":9,"fromSubIndex":0,"toIndex":0,"toSubIndex":0}
+
+    {"fromIndex":31,"fromSubIndex":0,"toIndex":6,"toSubIndex":0}
+
+    {"fromIndex":27,"fromSubIndex":0,"toIndex":42,"toSubIndex":0}
+
+    {"fromIndex":29,"fromSubIndex":0,"toIndex":43,"toSubIndex":0}
+
+    {"fromIndex":30,"fromSubIndex":0,"toIndex":45,"toSubIndex":0}
+
+    {"fromIndex":28,"fromSubIndex":0,"toIndex":44,"toSubIndex":0}
+
+    Preview:
+
+    9:0;27:0;28:0;29:0;30:0;31:0;
+
+'
+  textureSize: {x: 1024, y: 1024}

@@ -1,0 +1,24 @@
+/*
+ * @file    Clamp.compute
+ * @author  Leo Chaumartin
+ */
+
+
+#pragma kernel Clamp
+float Width;
+float Height;
+
+
+RWTexture2D<float4> Output;
+Texture2D<float4> Input;
+
+float uMin;
+float uMax;
+
+
+[numthreads(8,8,1)]
+void Clamp(uint3 id : SV_DispatchThreadID)
+{
+    Output[id.xy] = clamp(Input[id.xy], float4(uMin, uMin, uMin, uMax), float4(uMax, uMax, uMax, uMax));
+}
+ 

@@ -1,0 +1,21 @@
+/*
+ * @file    Split.compute
+ * @author  Leo Chaumartin
+ */
+
+#pragma kernel Split
+
+RWTexture2D<float4> R;
+RWTexture2D<float4> G;
+RWTexture2D<float4> B;
+RWTexture2D<float4> A;
+Texture2D<float4> Input;
+
+[numthreads(8,8,1)]
+void Split(uint3 id : SV_DispatchThreadID)
+{
+    R[id.xy] = float4(Input[id.xy].r, Input[id.xy].r, Input[id.xy].r, 1.0);
+    G[id.xy] = float4(Input[id.xy].g, Input[id.xy].g, Input[id.xy].g, 1.0);
+    B[id.xy] = float4(Input[id.xy].b, Input[id.xy].b, Input[id.xy].b, 1.0);
+    A[id.xy] = float4(Input[id.xy].a, Input[id.xy].a, Input[id.xy].a, 1.0);
+}

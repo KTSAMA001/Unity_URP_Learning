@@ -1,0 +1,27 @@
+/*
+ * @file    RoundedRect.compute
+ * @author  Leo Chaumartin
+ */
+#pragma kernel RoundedRect
+
+float Width;
+float Height;
+
+RWTexture2D<float4> Output;
+float uMarginsX;
+float uMarginsY;
+float uRadius;
+float uFalloff;
+
+float roundedBoxSDF(float2 CenterPosition, float2 Size, float Radius) {
+    return length(max(abs(CenterPosition) - Size + Radius * min(Size.x, Size.y), 0.0)) - (Radius+0.001) * min(Size.x, Size.y);
+}
+
+[numthreads(8,8,1)]
+void RoundedRect(uint3 id : SV_DispatchThreadID)
+{
+    float2 size = float2(1.0 - uMarginsX - uFalloff / 2.0, 1.0 - uMarginsY - uFalloff / 2.0);
+    float distance = roundedBoxSDF(id.xy/float2(Width, Height) - float2(uMarginsX/2.0 + uFalloff / 4.0, uMarginsY/2.0 + uFalloff / 4.0) - (size / 2.0f), size / 2.0f, uRadius);
+    float smoothed = 1.0 - smoothstep(0.0, uFalloff, distance);
+    Output[id.xy] = float4(smoothed, smoothed, smoothed, 1.0);
+}
