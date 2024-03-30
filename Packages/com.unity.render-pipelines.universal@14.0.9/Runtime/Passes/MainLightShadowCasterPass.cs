@@ -148,16 +148,30 @@ namespace UnityEngine.Rendering.Universal.Internal
             renderTargetHeight = (m_ShadowCasterCascadesCount == 2) ?
                 renderingData.shadowData.mainLightShadowmapHeight >> 1 :
                 renderingData.shadowData.mainLightShadowmapHeight;
-
-            for (int cascadeIndex = 0; cascadeIndex < m_ShadowCasterCascadesCount; ++cascadeIndex)
+      
+       
+         for (int cascadeIndex = 0; cascadeIndex < m_ShadowCasterCascadesCount; ++cascadeIndex)
             {
-                bool success = ShadowUtils.ExtractDirectionalLightMatrix(ref renderingData.cullResults, ref renderingData.shadowData,
-                    shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
-                    out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
+                //     bool success = ShadowUtils.ExtractDirectionalLightMatrix(ref renderingData.cullResults, ref renderingData.shadowData,
+                     //        shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
+                     //      out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
+                //
+                
+                 bool success = ShadowUtils.ExtractDirectionalLightMatrixKT(light,ref renderingData,
+                     shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
+                   out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
 
+            //
                 if (!success)
                     return SetupForEmptyRendering(ref renderingData);
             }
+
+        
+           // 已知管线设置上的级联的距离是与相机的距离，并没有算上近裁切面
+         // GameObject.Find("S1").transform.position =  renderingData.shadowData.mainLightShadowCascadesSplit[0]*50*Camera.main.transform.forward+Camera.main.transform.position;
+          //GameObject.Find("S1").transform.position = m_CascadeSplitDistances[0];
+        //    GameObject.Find("S2").transform.position =  m_CascadeSplitDistances[1];
+         //   GameObject.Find("S3").transform.position =  m_CascadeSplitDistances[2];
 //当前已知：xyz分量是世界坐标下的球体包围盒参数，z分量则是半径；下一步就是手动计算八个级联阴影相关的参数了；
             // if (! SceneView.currentDrawingSceneView)
             // {
@@ -174,6 +188,7 @@ namespace UnityEngine.Rendering.Universal.Internal
 
             return true;
         }
+       
 
         bool SetupForEmptyRendering(ref RenderingData renderingData)
         {

@@ -117,7 +117,8 @@ namespace UnityEngine.Rendering.Universal
             shadowSliceData.offsetX = (cascadeIndex % 2) * shadowResolution;
             shadowSliceData.offsetY = (cascadeIndex / 2) * shadowResolution;
             shadowSliceData.resolution = shadowResolution;
-            shadowSliceData.shadowTransform = GetShadowTransform(shadowSliceData.projectionMatrix, shadowSliceData.viewMatrix);
+            //  shadowSliceData.shadowTransform = Matrix4x4.identity;
+           shadowSliceData.shadowTransform = GetShadowTransform(shadowSliceData.projectionMatrix, shadowSliceData.viewMatrix);
 
             // It is the culling sphere radius multiplier for shadow cascade blending
             // If this is less than 1.0, then it will begin to cull castors across cascades
@@ -127,10 +128,126 @@ namespace UnityEngine.Rendering.Universal
             // in each shadow matrix to save shader ALU and L/S
             if (shadowData.mainLightShadowCascadesCount > 1)
                 ApplySliceTransform(ref shadowSliceData, shadowmapWidth, shadowmapHeight);
+          
+            return success;
+        }    
+        //尝试修改的投影相关的函数KT
+        public static bool ExtractDirectionalLightMatrixKT(Light light,ref RenderingData renderingData, int shadowLightIndex, int cascadeIndex, int shadowmapWidth, int shadowmapHeight, int shadowResolution, float shadowNearPlane, out Vector4 cascadeSplitDistance, out ShadowSliceData shadowSliceData)
+        {
+            shadowSliceData.splitData = default;
+            
+            bool success = true;
+    
+            
+          
+                // renderingData.cullResults.ComputeDirectionalShadowMatricesAndCullingPrimitives(shadowLightIndex,
+                // cascadeIndex, shadowData.mainLightShadowCascadesCount, shadowData.mainLightShadowCascadesSplit, shadowResolution, shadowNearPlane, out shadowSliceData.viewMatrix, out shadowSliceData.projectionMatrix,
+                // out shadowSliceData.splitData);
+            GameObject obj=GameObject.Find("SS4");
+            // if(obj!=null)
+            // {
+            //  
+            //     obj.transform.position = cr;
+            //     obj.transform.localScale = 2*new Vector3(cr.w,cr.w,cr.w);
+            //     
+            //
+            // }
+            
+            GameObject camObj = GameObject.Find("SMC1");
+            if (camObj == null)
+            {
+                camObj = new GameObject("SMC1");
+            }
+            Camera cam1=camObj.GetComponent<Camera>();
+            if (cam1==null) 
+            {
+                cam1=camObj.AddComponent<Camera>();
+            }
+            Vector4 cr=GetCullSphereBound(renderingData,cascadeIndex);
+            camObj.transform.position = new Vector3(cr.x,cr.y,cr.z)-light.transform.forward*cr.w;
+            cam1.orthographic = true;
+            camObj.transform.rotation = light.transform.rotation;
+            cam1.orthographicSize = cr.w;
+            cam1.farClipPlane = cr.w * 2;
+            shadowSliceData.splitData.shadowCascadeBlendCullingFactor = 1.0f;
 
+            shadowSliceData.splitData.cullingSphere = cr;
+            shadowSliceData.viewMatrix = cam1.worldToCameraMatrix;
+            shadowSliceData.projectionMatrix = cam1.projectionMatrix;
+            cascadeSplitDistance = shadowSliceData.splitData.cullingSphere;
+            shadowSliceData.offsetX = (cascadeIndex % 2) * shadowResolution;
+            shadowSliceData.offsetY = (cascadeIndex / 2) * shadowResolution;
+            shadowSliceData.resolution = shadowResolution;
+            // shadowSliceData.shadowTransform = Matrix4x4.identity;
+            shadowSliceData.shadowTransform = GetShadowTransform(shadowSliceData.projectionMatrix, shadowSliceData.viewMatrix);
+
+            // It is the culling sphere radius multiplier for shadow cascade blending
+            // If this is less than 1.0, then it will begin to cull castors across cascades
+            shadowSliceData.splitData.shadowCascadeBlendCullingFactor = 1.0f;
+
+            // If we have shadow cascades baked into the atlas we bake cascade transform
+            // in each shadow matrix to save shader ALU and L/S
+            if (renderingData.shadowData.mainLightShadowCascadesCount > 1)
+                ApplySliceTransform(ref shadowSliceData, shadowmapWidth, shadowmapHeight);
+          
             return success;
         }
+//KT Test
+       public static Vector4 GetCullSphereBound(RenderingData renderingData,int cascadeIndex)
+       {
+            Camera cam = Camera.main;
+            Vector4 cr = Vector4.zero;
+            Vector3 c = Vector3.zero;
+            float r = 0;
+            
+          float n = cam.nearClipPlane;
+          float  f = cam.farClipPlane;
+          // float n = 0;
+          if (cascadeIndex<renderingData.shadowData.mainLightShadowCascadesCount-1)
+          {
+              if (cascadeIndex<3)
+              {
+                  f = renderingData.shadowData.mainLightShadowCascadesSplit[cascadeIndex]*50;
+              }
+              else if(cascadeIndex<7)
+              {
+                  int index = cascadeIndex - 3;
+                  f =renderingData.shadowData.mainLightShadowCascadesSplit2[index]*50;
+              }
+          }
+          
+           
+           
+            
+          //  Vector3 vPos11= cam.ViewportToWorldPoint(new Vector3(1, 1, n));
+          //  Vector3 vPos01= cam.ViewportToWorldPoint(new Vector3(0, 1, n));
+          //  Vector3 vPos10= cam.ViewportToWorldPoint(new Vector3(1, 0, n));
 
+           // float h = Vector3.Distance(vPos11, vPos10);
+          //  float w= Vector3.Distance(vPos11, vPos01);
+            float w= Mathf.Tan(Mathf.Deg2Rad*cam.fieldOfView/2)*n*2;
+            float h =w* Screen.height/Screen.width;
+            float k = Mathf.Sqrt(1 + (h * h) / (w * w)) * Mathf.Tan(cam.fieldOfView* Mathf.Deg2Rad/2 ); 
+            float k2 = k * k;
+            float dis=renderingData.shadowData.mainLightShadowCascadesSplit[1]*50;
+            if(k2>=(f-n)/(f+n))
+            {
+                c = f*cam.transform.forward+cam.transform.position;
+                r = f*k;
+            }
+            else
+            {
+                c  = 0.5f*(f+n)*(1+k2)*cam.transform.forward+cam.transform.position;
+                //c=0.5f*(f+n)*(1+(w*w+h*h)/4*n*n)*cam.transform.forward+cam.transform.position;;
+                r = 0.5f * Mathf.Sqrt((f - n) * (f - n) + 2 * (f * f + n * n) * k2 + (f + n) * (f + n) * k2 * k2);
+                // r = 0.5f*Mathf.Sqrt((f-n)*(f-n)+2*(f*f+n*n)*(w*w+h*h)/4*n*n+(f+n)*(f+n)*((w*w+h*h)/4*n*n)*((w*w+h*h)/4*n*n));
+            }
+
+            //GameObject.Find("V11").transform.position = vPos01;
+            cr = new Vector4(c.x, c.y, c.z, r);
+            return cr;
+            //Debug.LogWarning($"{pos}");
+       }
         /// <summary>
         /// Extracts the spot light matrix.
         /// </summary>
