@@ -143,7 +143,17 @@ namespace UnityEngine.Rendering.Universal
                 // renderingData.cullResults.ComputeDirectionalShadowMatricesAndCullingPrimitives(shadowLightIndex,
                 // cascadeIndex, shadowData.mainLightShadowCascadesCount, shadowData.mainLightShadowCascadesSplit, shadowResolution, shadowNearPlane, out shadowSliceData.viewMatrix, out shadowSliceData.projectionMatrix,
                 // out shadowSliceData.splitData);
-            GameObject obj=GameObject.Find("SS4");
+            // GameObject obj=GameObject.Find("SSSS");
+            // if (obj == null) 
+            // {
+            //    
+            //     Debug.Log("没找到相关SSSS");
+            // }
+            // else
+            // {GameObject.DestroyImmediate(obj);
+            //     Debug.Log("找到相关SSSS");
+            // }
+            
             // if(obj!=null)
             // {
             //  
@@ -202,17 +212,18 @@ namespace UnityEngine.Rendering.Universal
             
           float n = cam.nearClipPlane;
           float  f = cam.farClipPlane;
+          float shadowMaxDis = Mathf.Min(f, UniversalRenderPipeline.asset.shadowDistance);
           // float n = 0;
           if (cascadeIndex<renderingData.shadowData.mainLightShadowCascadesCount-1)
           {
               if (cascadeIndex<3)
               {
-                  f = renderingData.shadowData.mainLightShadowCascadesSplit[cascadeIndex]*50;
+                  f = renderingData.shadowData.mainLightShadowCascadesSplit[cascadeIndex]*shadowMaxDis;
               }
               else if(cascadeIndex<7)
               {
                   int index = cascadeIndex - 3;
-                  f =renderingData.shadowData.mainLightShadowCascadesSplit2[index]*50;
+                  f =renderingData.shadowData.mainLightShadowCascadesSplit2[index]*shadowMaxDis;
               }
           }
           
