@@ -1,6 +1,6 @@
 using System;
+using UnityEditor.Graphs;
 using UnityEngine.Experimental.Rendering.RenderGraphModule;
-
 namespace UnityEngine.Rendering.Universal
 {
     /// <summary>
@@ -132,64 +132,22 @@ namespace UnityEngine.Rendering.Universal
             return success;
         }    
         //尝试修改的投影相关的函数KT
-        public static bool ExtractDirectionalLightMatrixKT(Light light,ref RenderingData renderingData, int shadowLightIndex, int cascadeIndex, int shadowmapWidth, int shadowmapHeight, int shadowResolution, float shadowNearPlane, out Vector4 cascadeSplitDistance, out ShadowSliceData shadowSliceData)
+        public static bool ExtractDirectionalLightMatrixKT(ref RenderingData renderingData, int shadowLightIndex,
+            int cascadeIndex, int shadowmapWidth, int shadowmapHeight, int shadowResolution, float shadowNearPlane,
+            out Vector4 cascadeSplitDistance, out ShadowSliceData shadowSliceData)
         {
-            shadowSliceData.splitData = default;
-            
-            bool success = true;
-    
-            
-          
-                // renderingData.cullResults.ComputeDirectionalShadowMatricesAndCullingPrimitives(shadowLightIndex,
-                // cascadeIndex, shadowData.mainLightShadowCascadesCount, shadowData.mainLightShadowCascadesSplit, shadowResolution, shadowNearPlane, out shadowSliceData.viewMatrix, out shadowSliceData.projectionMatrix,
-                // out shadowSliceData.splitData);
-            // GameObject obj=GameObject.Find("SSSS");
-            // if (obj == null) 
-            // {
-            //    
-            //     Debug.Log("没找到相关SSSS");
-            // }
-            // else
-            // {GameObject.DestroyImmediate(obj);
-            //     Debug.Log("找到相关SSSS");
-            // }
-            
-            // if(obj!=null)
-            // {
-            //  
-            //     obj.transform.position = cr;
-            //     obj.transform.localScale = 2*new Vector3(cr.w,cr.w,cr.w);
-            //     
-            //
-            // }
-            
-            GameObject camObj = GameObject.Find("SMC1");
-            if (camObj == null)
-            {
-                camObj = new GameObject("SMC1");
-            }
-            Camera cam1=camObj.GetComponent<Camera>();
-            if (cam1==null) 
-            {
-                cam1=camObj.AddComponent<Camera>();
-            }
-            Vector4 cr=GetCullSphereBound(renderingData,cascadeIndex);
-            camObj.transform.position = new Vector3(cr.x,cr.y,cr.z)-light.transform.forward*cr.w;
-            cam1.orthographic = true;
-            camObj.transform.rotation = light.transform.rotation;
-            cam1.orthographicSize = cr.w;
-            cam1.farClipPlane = cr.w * 2;
-            shadowSliceData.splitData.shadowCascadeBlendCullingFactor = 1.0f;
+            bool success = GetCullSphereBound(renderingData, cascadeIndex, shadowResolution, shadowLightIndex,
+                out shadowSliceData);
 
-            shadowSliceData.splitData.cullingSphere = cr;
-            shadowSliceData.viewMatrix = cam1.worldToCameraMatrix;
-            shadowSliceData.projectionMatrix = cam1.projectionMatrix;
+
+            shadowSliceData.splitData.shadowCascadeBlendCullingFactor = 1.0f;
             cascadeSplitDistance = shadowSliceData.splitData.cullingSphere;
             shadowSliceData.offsetX = (cascadeIndex % 2) * shadowResolution;
             shadowSliceData.offsetY = (cascadeIndex / 2) * shadowResolution;
             shadowSliceData.resolution = shadowResolution;
             // shadowSliceData.shadowTransform = Matrix4x4.identity;
-            shadowSliceData.shadowTransform = GetShadowTransform(shadowSliceData.projectionMatrix, shadowSliceData.viewMatrix);
+            shadowSliceData.shadowTransform =
+                GetShadowTransform(shadowSliceData.projectionMatrix, shadowSliceData.viewMatrix);
 
             // It is the culling sphere radius multiplier for shadow cascade blending
             // If this is less than 1.0, then it will begin to cull castors across cascades
@@ -199,48 +157,70 @@ namespace UnityEngine.Rendering.Universal
             // in each shadow matrix to save shader ALU and L/S
             if (renderingData.shadowData.mainLightShadowCascadesCount > 1)
                 ApplySliceTransform(ref shadowSliceData, shadowmapWidth, shadowmapHeight);
-          
+
             return success;
         }
 //KT Test
-       public static Vector4 GetCullSphereBound(RenderingData renderingData,int cascadeIndex)
-       {
-            Camera cam = Camera.main;
+       // static GameObject camSMObj = GameObject.Find("camSM");
+        
+        public static bool GetCullSphereBound(RenderingData renderingData, int cascadeIndex, int shadowResolution,
+            int shadowLightIndex,out ShadowSliceData shadowSliceData)
+        {
+            shadowSliceData = default;
+            float delta = 0;
+            Light light = renderingData.lightData.visibleLights[shadowLightIndex].light;
+            Camera cam = renderingData.cameraData.camera;
+            if (cam == null)
+            {
+                Debug.LogWarning("没有主相机");
+             
+                return false;
+            }
+        //   if (camSMObj == null)
+         ////   {
+          //     camSMObj = new GameObject("camSM");
+             
+         //  } 
+          //  camSMObj.hideFlags = HideFlags.None;
+         //   Camera camSM = camSMObj.GetComponent<Camera>();
+         //    if (camSM==null) 
+         //    {
+          //       camSM=camSMObj.AddComponent<Camera>();
+          //   }
+
+          //  camSM.enabled = false;
+            
             Vector4 cr = Vector4.zero;
             Vector3 c = Vector3.zero;
             float r = 0;
-            
-          float n = cam.nearClipPlane;
-          float  f = cam.farClipPlane;
-          float shadowMaxDis = Mathf.Min(f, UniversalRenderPipeline.asset.shadowDistance);
-          // float n = 0;
-          if (cascadeIndex<renderingData.shadowData.mainLightShadowCascadesCount-1)
-          {
-              if (cascadeIndex<3)
-              {
-                  f = renderingData.shadowData.mainLightShadowCascadesSplit[cascadeIndex]*shadowMaxDis;
-              }
-              else if(cascadeIndex<7)
-              {
-                  int index = cascadeIndex - 3;
-                  f =renderingData.shadowData.mainLightShadowCascadesSplit2[index]*shadowMaxDis;
-              }
-          }
-          
-           
-           
-            
-          //  Vector3 vPos11= cam.ViewportToWorldPoint(new Vector3(1, 1, n));
-          //  Vector3 vPos01= cam.ViewportToWorldPoint(new Vector3(0, 1, n));
-          //  Vector3 vPos10= cam.ViewportToWorldPoint(new Vector3(1, 0, n));
-
-           // float h = Vector3.Distance(vPos11, vPos10);
-          //  float w= Vector3.Distance(vPos11, vPos01);
+            float n = cam.nearClipPlane;
+            float f = cam.farClipPlane;
+            float shadowMaxDis = Mathf.Min(f, UniversalRenderPipeline.asset.shadowDistance);
+            f = shadowMaxDis;
+            // float n = 0;
+            if (cascadeIndex < renderingData.shadowData.mainLightShadowCascadesCount - 1)
+            {
+                if (cascadeIndex < 3)
+                {
+                    f = renderingData.shadowData.mainLightShadowCascadesSplit[cascadeIndex] * shadowMaxDis;
+                }
+                else if (cascadeIndex < 7)
+                {
+                    int index = cascadeIndex - 3;
+                    f = renderingData.shadowData.mainLightShadowCascadesSplit2[index] * shadowMaxDis;
+                }
+            }
+            // Vector3 vPos11= camSM.ViewportToWorldPoint(new Vector3(1, 1, n));
+            // Vector3 vPos01= camSM.ViewportToWorldPoint(new Vector3(0, 1, n));
+            // Vector3 vPos10= camSM.ViewportToWorldPoint(new Vector3(1, 0, n));
+            //
+            // float hh = Vector3.Distance(vPos11, vPos10);
+            // float ww= Vector3.Distance(vPos11, vPos01);
+            // Debug.Log( $"{ww}::{hh}");
             float w= Mathf.Tan(Mathf.Deg2Rad*cam.fieldOfView/2)*n*2;
             float h =w* Screen.height/Screen.width;
-            float k = Mathf.Sqrt(1 + (h * h) / (w * w)) * Mathf.Tan(cam.fieldOfView* Mathf.Deg2Rad/2 ); 
+            float k = Mathf.Sqrt(1f + (h * h) / (w * w)) * Mathf.Tan(cam.fieldOfView* Mathf.Deg2Rad/2f ); 
             float k2 = k * k;
-            float dis=renderingData.shadowData.mainLightShadowCascadesSplit[1]*50;
             if(k2>=(f-n)/(f+n))
             {
                 c = f*cam.transform.forward+cam.transform.position;
@@ -248,15 +228,71 @@ namespace UnityEngine.Rendering.Universal
             }
             else
             {
-                c  = 0.5f*(f+n)*(1+k2)*cam.transform.forward+cam.transform.position;
-                //c=0.5f*(f+n)*(1+(w*w+h*h)/4*n*n)*cam.transform.forward+cam.transform.position;;
-                r = 0.5f * Mathf.Sqrt((f - n) * (f - n) + 2 * (f * f + n * n) * k2 + (f + n) * (f + n) * k2 * k2);
-                // r = 0.5f*Mathf.Sqrt((f-n)*(f-n)+2*(f*f+n*n)*(w*w+h*h)/4*n*n+(f+n)*(f+n)*((w*w+h*h)/4*n*n)*((w*w+h*h)/4*n*n));
+                c  = 0.5f*(f+n)*(1f+k2)*cam.transform.forward+cam.transform.position;
+                r = 0.5f * Mathf.Sqrt((f - n) * (f - n) + 2f * (f * f + n * n) * k2 + (f + n) * (f + n) * k2 * k2);
             }
-
-            //GameObject.Find("V11").transform.position = vPos01;
-            cr = new Vector4(c.x, c.y, c.z, r);
-            return cr;
+        //    camSM.transform.position = c;
+         //  camSM.transform.rotation = light.transform.rotation;
+         //  camSM.orthographic = true;
+           // camSM.orthographicSize = r;
+           // camSM.farClipPlane = r;
+           // camSM.nearClipPlane = -r;
+            delta = 2.0f * r / shadowResolution;
+            // c.x += Mathf.Floor( Mathf.Sin(Time.time)*5)*delta;
+            // c.y += Mathf.Floor( Mathf.Sin(Time.time)*5)*delta;
+            Vector3 sphereCenterSnappedOS = light.transform.worldToLocalMatrix.MultiplyVector(c);
+           
+            sphereCenterSnappedOS.x /= delta;
+            sphereCenterSnappedOS.x = Mathf.Floor(sphereCenterSnappedOS.x);
+            sphereCenterSnappedOS.x *= delta;
+            sphereCenterSnappedOS.y /= delta;
+            sphereCenterSnappedOS.y = Mathf.Floor(sphereCenterSnappedOS.y);
+            sphereCenterSnappedOS.y *= delta;
+            Vector3 sphereCenter =  light.transform.localToWorldMatrix.MultiplyVector(sphereCenterSnappedOS);
+        //   camSM.transform.position = sphereCenter;
+          
+            
+           //第一个下标为第几行，与C++相反
+           //手动构建V矩阵，这样就能完全脱离新建相机了
+            Matrix4x4 v1=Matrix4x4.identity;
+            v1.m00 = light.transform.right.x;
+            v1.m01 = light.transform.right.y;
+            v1.m02 = light.transform.right.z;
+            
+            v1.m10 = light.transform.up.x;
+            v1.m11 = light.transform.up.y;
+            v1.m12 = light.transform.up.z;
+            
+            v1.m20 = -light.transform.forward.x;
+            v1.m21 = -light.transform.forward.y;
+            v1.m22 = -light.transform.forward.z;
+            
+            v1.m03 = -Vector3.Dot(light.transform.right,sphereCenter);
+            v1.m13 =-Vector3.Dot(light.transform.up,sphereCenter);
+            v1.m23 = Vector3.Dot(light.transform.forward,sphereCenter);
+            
+          //  shadowSliceData.viewMatrix = camSM.worldToCameraMatrix;
+            
+            shadowSliceData.viewMatrix = v1;
+          //  Debug.Log("CamSMP:"+camSM.worldToCameraMatrix);
+            // Debug.Log("v1:"+v1);
+           //使用相机的投影矩阵会出现相机激活的时候，投影相机的长宽跟随屏幕而不是包围球，导致后续根据像素单位位移距离防止阴影抖动这一步计算错误（比例错误了）
+            Matrix4x4 p1=Matrix4x4.identity;
+            p1.m00 = 1.0f / r;
+            p1.m11 = 1.0f / r;
+            p1.m22 = -2.0f / (r - (-r));
+            p1.m23 = -(r + (-r)) / (r - (-r));
+            p1.m33 = 1;
+            
+            // shadowSliceData.projectionMatrix = camSM.projectionMatrix;
+            // Debug.Log("CamSMP:"+camSM.projectionMatrix);
+            // Debug.Log("p1:"+p1);
+            shadowSliceData.projectionMatrix = p1;
+            
+            cr = new Vector4(sphereCenter.x, sphereCenter.y, sphereCenter.z, r);
+            shadowSliceData.splitData.cullingSphere = cr;
+            
+            return true;
             //Debug.LogWarning($"{pos}");
        }
         /// <summary>
