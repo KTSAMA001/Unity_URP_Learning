@@ -15,6 +15,8 @@
 CBUFFER_START(UnityPerMaterial)
 float4 _BaseMap_ST;
 float4 _DetailAlbedoMap_ST;
+float4 _FaceRight;
+float4 _FaceForward;
 
 half4 _RampColor_Skin;
 half4 _RampColor_Other;

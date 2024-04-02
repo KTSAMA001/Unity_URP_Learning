@@ -7,6 +7,8 @@ Shader "KTSAMA/NPR/Toon"
         [Toggle]_AlphaTest("AlphaTest",float)=0
         [Toggle]_Screen_Space_HairShadow("屏幕空间头发投影(需要打开SSHSRenderPassFeature)？",float)=0
         [Toggle]_IsFace("IsFace",float)=0
+        _FaceRight("_FaceRight",Vector)=(0, -1,0 ,0)
+        _FaceForward("_FaceForward",Vector)=(-1, 0,0,0 )
         [Toggle]_IsHair("IsHair",float)=0
         [Toggle]_Depth_Mask_Color_Local("开启深度偏移描边（需要打开SSDepthOffsetPassFeature）？",float)=0
         [Toggle]_Inside_Edge_Albedo_Mul("内轮廓描边与基础颜色相乘？",float)=0
@@ -335,13 +337,18 @@ Shader "KTSAMA/NPR/Toon"
               
 
 
-                float3 rightDirWS = TransformObjectToWorldDir(float3(0, -1,0 ));
+             //   float3 rightDirWS = TransformObjectToWorldDir(float3(0, -1,0 ));
+             //   float3 lightDirWS = light_main.direction;
+             //   float3 forwardDirWS = TransformObjectToWorldDir(float3(-1, 0,0 ));
+
+                
+                float3 rightDirWS =_FaceRight;
                 float3 lightDirWS = light_main.direction;
-                float3 forwardDirWS = TransformObjectToWorldDir(float3(-1, 0,0 ));
-                 // return float4(rightDirWS,1);
+                float3 forwardDirWS = _FaceForward;
+            //    return float4(_FaceForward.xyz,1);
                 //--控制面捕SDF跟随主光源方向进行变化
                 //float FL_step = step(0, dot(lightDirWS, forwardDirWS));
-                float FL_step = smoothstep(0,0.1,max(0, dot(lightDirWS, forwardDirWS)));
+                float FL_step = smoothstep(0,0.2,max(0, dot(lightDirWS, forwardDirWS)));
                // return FL_step;
                 // FL_step=1;
                 float faceNL = dot(lightDirWS, rightDirWS) ;
