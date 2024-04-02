@@ -152,14 +152,14 @@ namespace UnityEngine.Rendering.Universal.Internal
        
          for (int cascadeIndex = 0; cascadeIndex < m_ShadowCasterCascadesCount; ++cascadeIndex)
             {
-                   bool success = ShadowUtils.ExtractDirectionalLightMatrix(ref renderingData.cullResults, ref renderingData.shadowData,
-                             shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
-                          out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
+                //   bool success = ShadowUtils.ExtractDirectionalLightMatrix(ref renderingData.cullResults, ref renderingData.shadowData,
+                //          shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
+                //         out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
                 //
                 
-                //   bool success = ShadowUtils.ExtractDirectionalLightMatrixKT(ref renderingData,
-                //       shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
-                //     out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
+                   bool success = ShadowUtils.ExtractDirectionalLightMatrixKT(ref renderingData,
+                     shadowLightIndex, cascadeIndex, renderTargetWidth, renderTargetHeight, shadowResolution, light.shadowNearPlane,
+                     out m_CascadeSplitDistances[cascadeIndex], out m_CascadeSlices[cascadeIndex]);
 
             //
                 if (!success)
@@ -330,11 +330,24 @@ namespace UnityEngine.Rendering.Universal.Internal
                     m_CascadeSplitDistances[2]);
                 cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSpheres3,
                     m_CascadeSplitDistances[3]);
+                   cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSpheres4,
+                    m_CascadeSplitDistances[4]);
+                cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSpheres5,
+                    m_CascadeSplitDistances[5]);
+                cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSpheres6,
+                    m_CascadeSplitDistances[6]);
+                cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSpheres7,
+                    m_CascadeSplitDistances[7]);
                 cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSphereRadii, new Vector4(
                     m_CascadeSplitDistances[0].w * m_CascadeSplitDistances[0].w,
                     m_CascadeSplitDistances[1].w * m_CascadeSplitDistances[1].w,
                     m_CascadeSplitDistances[2].w * m_CascadeSplitDistances[2].w,
                     m_CascadeSplitDistances[3].w * m_CascadeSplitDistances[3].w));
+                cmd.SetGlobalVector(MainLightShadowConstantBuffer._CascadeShadowSplitSphereRadii2, new Vector4(
+                    m_CascadeSplitDistances[4].w * m_CascadeSplitDistances[4].w,
+                    m_CascadeSplitDistances[5].w * m_CascadeSplitDistances[5].w,
+                    m_CascadeSplitDistances[6].w * m_CascadeSplitDistances[6].w,
+                    m_CascadeSplitDistances[7].w * m_CascadeSplitDistances[7].w));
             }
 
             // Inside shader soft shadows are controlled through global keyword.
@@ -347,6 +360,12 @@ namespace UnityEngine.Rendering.Universal.Internal
                     new Vector4(-invHalfShadowAtlasWidth, -invHalfShadowAtlasHeight,
                         invHalfShadowAtlasWidth, -invHalfShadowAtlasHeight));
                 cmd.SetGlobalVector(MainLightShadowConstantBuffer._ShadowOffset1,
+                    new Vector4(-invHalfShadowAtlasWidth, invHalfShadowAtlasHeight,
+                        invHalfShadowAtlasWidth, invHalfShadowAtlasHeight));
+                cmd.SetGlobalVector(MainLightShadowConstantBuffer._ShadowOffset2,
+                    new Vector4(-invHalfShadowAtlasWidth, -invHalfShadowAtlasHeight,
+                        invHalfShadowAtlasWidth, -invHalfShadowAtlasHeight));
+                cmd.SetGlobalVector(MainLightShadowConstantBuffer._ShadowOffset3,
                     new Vector4(-invHalfShadowAtlasWidth, invHalfShadowAtlasHeight,
                         invHalfShadowAtlasWidth, invHalfShadowAtlasHeight));
 
