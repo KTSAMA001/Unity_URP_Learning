@@ -57,19 +57,41 @@ public class SSDepthMaskPassFeature : ScriptableRendererFeature
            profilingSampler = new ProfilingSampler(_setting.profileTag);
         }
 
+        private RTHandle _tempRTH;
+        private RenderTexture _rt;
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
-            //获取一个ID，这也是我们之后在Shader中用到的Buffer名
-            int temp = Shader.PropertyToID("_DepthMaskColor");
             //使用与摄像机Texture同样的设置
             RenderTextureDescriptor desc = cameraTextureDescriptor;
-            cmd.GetTemporaryRT(temp, desc);
+            desc.depthBufferBits = 0;
+          bool b= RenderingUtils.ReAllocateIfNeeded(  ref _tempRTH,
+              /*new ScaleFunc(size => new Vector2Int(desc.width,desc.height)),*/
+               desc,
+               FilterMode.Bilinear,
+               TextureWrapMode.Clamp,
+               false,
+               1,
+               0f,
+               "_DepthMaskColor"
+           );
+  // _tempRTH = RTHandles.Alloc(Vector2.one, depthBufferBits: DepthBits.Depth32, dimension: TextureDimension.Tex2D, name: "_DepthMaskColor");
+        
+           //获取一个ID，这也是我们之后在Shader中用到的Buffer名
+           int temp = 0;
           
-            soildColorID = temp;
-            //将这个RT设置为Render Target
-            ConfigureTarget(temp);
-            //将RT清空为黑
-            ConfigureClear(ClearFlag.All, Color.black);
+           
+           temp=Shader.PropertyToID(_tempRTH.name);
+          // _tempRTH=  RTHandles.Alloc(temp);
+          CoreUtils.SetRenderTarget(cmd,_tempRTH);
+          // cmd.GetTemporaryRT(temp, desc);
+          // _tempRTH.
+          // RenderTargetIdentifier renderTargetIdentifier = _tempRTH;
+           cmd.SetGlobalTexture(temp, _tempRTH);
+           soildColorID = temp;
+           // 将这个RT设置为Render Target
+           //   ConfigureTarget(temp);
+           ConfigureTarget(_tempRTH);
+           ConfigureClear(ClearFlag.All,Color.clear);
         }
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -83,12 +105,14 @@ public class SSDepthMaskPassFeature : ScriptableRendererFeature
                 var draw1 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
                 draw1.overrideMaterial = _setting.material;
                 draw1.overrideMaterialPassIndex = 2;
+                
                 context.DrawRenderers(renderingData.cullResults, ref draw1, ref filtering);
+               
             }
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
             CommandBufferPool.Release(cmd);
-
+          
 
 
         }
@@ -97,12 +121,23 @@ public class SSDepthMaskPassFeature : ScriptableRendererFeature
         public override void OnCameraCleanup(CommandBuffer cmd)
         {
             CoreUtils.SetKeyword(cmd, "_DEPTH_MASK_COLOR",false);
-            cmd.ReleaseTemporaryRT(soildColorID);
+        //   cmd.ReleaseTemporaryRT(soildColorID);
+         
         }
-        
+
+        public void Dispose()
+        {
+            _tempRTH?.Release();
+        }
+       
     }
 
     CustomRenderPass m_ScriptablePass;
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        m_ScriptablePass.Dispose();
+    }
 
     /// <inheritdoc/>
     public override void Create()
