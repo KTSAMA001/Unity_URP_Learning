@@ -293,11 +293,12 @@ Shader "KTSAMA/NPR/Toon"
 
                 float3 normalWS = normalize(
                     TransformTangentToWorld(normalTS,real3x3(i.tangentWS, i.bitangentWS, i.normalWS)));
-
+              // return pow(saturate(dot(normalWS,TransformObjectToWorld(float3(0,1,0)))*float4(0,1,0,1)),_DebugFloat);
+//return float4(normalWS,1);
                 float4 albedo = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv)*_BaseColor;
                 //m.r是金属度
                 //m.b目前定为用作MatCap的mask
-                //m.b暂定为光滑度
+                //m.g暂定为光滑度
                 float4 m = SAMPLE_TEXTURE2D(_M, sampler_M, i.uv);
                 float mask_skin = SAMPLE_TEXTURE2D(_SkinMask, sampler_SkinMask, i.uv).r;
                #if _MAIN_LIGHT_SHADOWS_SCREEN || _SCREEN_SPACE_OCCLUSION|| _SCREEN_SPACE_HAIRSHADOW_ON||_DEPTH_MASK_COLOR
@@ -419,17 +420,19 @@ Shader "KTSAMA/NPR/Toon"
                 
                 //PBR GGX高光
                 #ifdef  _ISHAIR_ON
-                env_col = GGXSpecular_Env(albedo,normalWS,viewDirWS,m.r,saturate(1-m.b),m.b)*(1-mask_skin);
-                final_color=GGXSpecular(albedo,shadow_main,light_main,normalWS,viewDirWS,m.r,0.5,mask_skin,m.b);
+                env_col = GGXSpecular_Env(albedo,normalWS,viewDirWS,m.r,saturate(1-m.g),m.b)*(1-mask_skin);
+                final_color=GGXSpecular(albedo,shadow_main,light_main,normalWS,viewDirWS,m.r,saturate(1-m.g),mask_skin,m.b);
                 matCap=0;
                
-                 //return float4(specular,1);
+                // return 0.5;
+                // return float4(final_color,1);
                 #else
-                 frenal=(1-saturate(pow(dot(viewDirWS,normalWS),6)*70))*light_main.color*lerp(0.3,0.1,shadow_main); 
-               // return frenal;
-                env_col = GGXSpecular_Env(albedo, normalWS, viewDirWS, m.r, saturate(1 - m.b), 1) * (1 - mask_skin);
-                final_color = GGXSpecular(albedo, shadow_main, light_main, normalWS, viewDirWS, m.r, saturate(1 - m.b),  mask_skin, 0);
-//让金属部分更多的只被MatCap影响 
+                frenal=(1-saturate(pow(dot(viewDirWS,normalWS),6)*70))*light_main.color*lerp(0.3,0.1,shadow_main); 
+                // return frenal;
+                env_col = GGXSpecular_Env(albedo, normalWS, viewDirWS, m.r, saturate(1 - m.g), 1) * (1 - mask_skin);
+                final_color = GGXSpecular(albedo, shadow_main, light_main, normalWS, viewDirWS, m.r, saturate(1 - m.g),  mask_skin, 0);
+
+                //让金属部分更多的只被MatCap影响 
                 final_color*=(1-m.b);
                 matCap *= saturate(m.b);
                 #endif
