@@ -48,6 +48,7 @@ public class TMP_PropertiesSender : MonoBehaviour
         // Shader.SetGlobalFloat("_RGBSplit_Indensity",_RGBSplit_Indensity);
         // Shader.SetGlobalFloat("_Alpha",_Alpha);
         m_TextComponent.materialForRendering.SetFloat("_DebugFloat",_DebugFloat);
+        m_TextComponent.materialForRendering.SetFloat("_Speed",_Speed);
         m_TextComponent.materialForRendering.SetFloat("_Offset_Block",_Offset_Block);
         m_TextComponent.materialForRendering.SetFloat("_BlockLayer1_U",_BlockLayer1_U);
         m_TextComponent.materialForRendering.SetFloat("_BlockLayer1_V",_BlockLayer1_V);
