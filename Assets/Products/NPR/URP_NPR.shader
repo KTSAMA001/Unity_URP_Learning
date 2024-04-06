@@ -194,7 +194,7 @@ Shader "KTSAMA/NPR/Toon"
             }
 
             float3 GGXSpecular(float3 albedo, float shadow, Light lightData, float3 N, float3 V, float metallic,
-                float roughness, float mask_skin, float mask_hait_HightLight = 1)
+                float roughness, float mask_skin, float mask_hair_HightLight = 1)
             {
                 float3 L = normalize(lightData.direction);
                 float3 F0 = lerp(0.04, albedo, metallic);
@@ -210,9 +210,9 @@ Shader "KTSAMA/NPR/Toon"
                 float3 rampMap_skinNL = SAMPLE_TEXTURE2D(_RampMap_Skin, sampler_RampMap_Skin, uv_rampNL);
                 float3 final_other=0;
                 #ifdef _ISHAIR_ON
-                 float3 specular=pow(NV+_HaifHightLight_Bias,_HaifHightLight_Power)*_HaifHightLight_Scale*mask_hait_HightLight*NL*shadow;
+                 float3 specular=pow(NV+_HaifHightLight_Bias,_HaifHightLight_Power)*_HaifHightLight_Scale*mask_hair_HightLight*NL*shadow;
                  specular= saturate(specular);
-                 final_other = (rampMap_otherNL + specular + mask_hait_HightLight * NL * 0.5*max(0.2,shadow)) * albedo;
+                 final_other = (rampMap_otherNL + specular + mask_hair_HightLight * NL * 0.5*max(0.2,shadow)) * albedo;
                 // return specular;
                 #else
                 // float3 specular = pow(saturate(dot(H,N)),5)*1*mask_specular;
@@ -236,7 +236,7 @@ Shader "KTSAMA/NPR/Toon"
             }
 
             float3 GGXSpecular_Env(float3 albedo, float3 N, float3 V, float metallic, float roughness,
-         float mask_hait_HightLight = 1)
+         float mask_hair_HightLight = 1)
             {
                 float NV = saturate(dot(N, V));
 
@@ -264,7 +264,7 @@ Shader "KTSAMA/NPR/Toon"
                 // float3 specular_InDirect =  EnvSpecularPrefilted*(F * env_brdf.r + env_brdf.g);
 
                 #ifdef _ISHAIR_ON
-                  float3 specular_InDirect =  _EnvColor_Specular*(F * env_brdf.r + env_brdf.g)*0.2*mask_hait_HightLight;
+                  float3 specular_InDirect =  _EnvColor_Specular*(F * env_brdf.r + env_brdf.g)*0.2*mask_hair_HightLight;
                 #else
                 // float3 specular = pow(saturate(dot(H,N)),5)*1*mask_specular;
                 float3 specular_InDirect = _EnvColor_Specular * (F * env_brdf.r + env_brdf.g);
