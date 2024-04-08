@@ -59,20 +59,23 @@ public class SSHSRenderPassFeature : ScriptableRendererFeature
         {
             
             profilingSampler = new ProfilingSampler(_setting.profileTag);
-        }
-
-        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
-        {
+            
+            
             //获取一个ID，这也是我们之后在Shader中用到的Buffer名
             int temp = Shader.PropertyToID("_HairSoildColor");
             //使用与摄像机Texture同样的设置
-            RenderTextureDescriptor desc = cameraTextureDescriptor;
+            RenderTextureDescriptor desc = renderingData.cameraData.cameraTargetDescriptor;
             cmd.GetTemporaryRT(temp, desc);
             soildColorID = temp;
             //将这个RT设置为Render Target
             ConfigureTarget(temp);
             //将RT清空为黑
             ConfigureClear(ClearFlag.All, Color.black);
+        }
+
+        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+        {
+          
 
         }
 

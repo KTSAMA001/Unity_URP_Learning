@@ -55,17 +55,14 @@ public class SSDepthMaskPassFeature : ScriptableRendererFeature
            CoreUtils.SetKeyword(cmd, "_DEPTH_MASK_COLOR",true);
            
            profilingSampler = new ProfilingSampler(_setting.profileTag);
-        }
-
-        private RTHandle _tempRTH;
-        private RenderTexture _rt;
-        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
-        {
-            //使用与摄像机Texture同样的设置
-            RenderTextureDescriptor desc = cameraTextureDescriptor;
-            desc.depthBufferBits = 0;
-          bool b= RenderingUtils.ReAllocateIfNeeded(  ref _tempRTH,
-              /*new ScaleFunc(size => new Vector2Int(desc.width,desc.height)),*/
+           
+           
+           
+           //使用与摄像机Texture同样的设置
+           RenderTextureDescriptor desc = renderingData.cameraData.cameraTargetDescriptor;
+           desc.depthBufferBits = 0;
+           bool b= RenderingUtils.ReAllocateIfNeeded(  ref _tempRTH,
+               /*new ScaleFunc(size => new Vector2Int(desc.width,desc.height)),*/
                desc,
                FilterMode.Bilinear,
                TextureWrapMode.Clamp,
@@ -74,24 +71,32 @@ public class SSDepthMaskPassFeature : ScriptableRendererFeature
                0f,
                "_DepthMaskColor"
            );
-  // _tempRTH = RTHandles.Alloc(Vector2.one, depthBufferBits: DepthBits.Depth32, dimension: TextureDimension.Tex2D, name: "_DepthMaskColor");
+           // _tempRTH = RTHandles.Alloc(Vector2.one, depthBufferBits: DepthBits.Depth32, dimension: TextureDimension.Tex2D, name: "_DepthMaskColor");
         
            //获取一个ID，这也是我们之后在Shader中用到的Buffer名
            int temp = 0;
           
            
            temp=Shader.PropertyToID(_tempRTH.name);
-          // _tempRTH=  RTHandles.Alloc(temp);
-          CoreUtils.SetRenderTarget(cmd,_tempRTH);
-          // cmd.GetTemporaryRT(temp, desc);
-          // _tempRTH.
-          // RenderTargetIdentifier renderTargetIdentifier = _tempRTH;
+           // _tempRTH=  RTHandles.Alloc(temp);
+           CoreUtils.SetRenderTarget(cmd,_tempRTH);
+           // cmd.GetTemporaryRT(temp, desc);
+           // _tempRTH.
+           // RenderTargetIdentifier renderTargetIdentifier = _tempRTH;
            cmd.SetGlobalTexture(temp, _tempRTH);
            soildColorID = temp;
            // 将这个RT设置为Render Target
            //   ConfigureTarget(temp);
            ConfigureTarget(_tempRTH);
            ConfigureClear(ClearFlag.All,Color.clear);
+           
+        }
+
+        private RTHandle _tempRTH;
+        private RenderTexture _rt;
+        public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
+        {
+           
         }
 
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)

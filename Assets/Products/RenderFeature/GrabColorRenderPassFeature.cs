@@ -68,7 +68,6 @@ public class Setting
     public string profileTag= "Grab Color Pass";
     public RTHandle cameraColorTag;
     public RTHandle scene_cameraColorTag;
-    public RenderTexture scene_cameraRT;
 }
 
 class GrabColorPass : ScriptableRenderPass
