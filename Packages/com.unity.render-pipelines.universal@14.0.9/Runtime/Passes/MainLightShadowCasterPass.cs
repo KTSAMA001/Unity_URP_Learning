@@ -144,9 +144,15 @@ namespace UnityEngine.Rendering.Universal.Internal
 
             int shadowResolution = ShadowUtils.GetMaxTileResolutionInAtlas(renderingData.shadowData.mainLightShadowmapWidth,
                 renderingData.shadowData.mainLightShadowmapHeight, m_ShadowCasterCascadesCount);
-            renderTargetWidth = renderingData.shadowData.mainLightShadowmapWidth;
+           // renderTargetWidth = renderingData.shadowData.mainLightShadowmapWidth;
+            renderTargetWidth= (m_ShadowCasterCascadesCount > 4) ?
+                renderingData.shadowData.mainLightShadowmapWidth >> 1 :
+                renderingData.shadowData.mainLightShadowmapWidth;
             renderTargetHeight = (m_ShadowCasterCascadesCount == 2) ?
                 renderingData.shadowData.mainLightShadowmapHeight >> 1 :
+                renderingData.shadowData.mainLightShadowmapHeight;
+            renderTargetHeight = (m_ShadowCasterCascadesCount == 5||m_ShadowCasterCascadesCount == 6) ?
+                renderingData.shadowData.mainLightShadowmapHeight*3/4 :
                 renderingData.shadowData.mainLightShadowmapHeight;
      
        
