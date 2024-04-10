@@ -102,7 +102,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Absorption: 200
+    - _Absorption: 100
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AmbientDensity: 0.95
@@ -149,8 +149,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Ambient_Color1: {r: 0.93962264, g: 0.29924288, b: 0, a: 1}
-    - _Ambient_Color2: {r: 0.27058828, g: 0.50271046, b: 1, a: 1}
+    - _Ambient_Color1: {r: 0.5943396, g: 1, b: 0.96956724, a: 1}
+    - _Ambient_Color2: {r: 0.288795, g: 0, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color1: {r: 0.78867924, g: 0.24742879, b: 0, a: 1}

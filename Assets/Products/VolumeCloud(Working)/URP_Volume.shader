@@ -344,7 +344,7 @@ void clouds(float3 pos, out float sdf, out float density)
         // density = saturate((base - noise * _NoiseIntensity)/(1 - noise * _NoiseIntensity));
         // density = saturate(base +noise.r*_NoiseIntensity -1.1);
     }
-    float3 mod3D289(float3 x) { return x - floor(x / 289.0) * 289.0; }
+float3 mod3D289(float3 x) { return x - floor(x / 289.0) * 289.0; }
 float4 mod3D289(float4 x) { return x - floor(x / 289.0) * 289.0; }
 float4 permute(float4 x) { return mod3D289((x * 34.0 + 1.0) * x); }
 float4 taylorInvSqrt(float4 r) { return 1.79284291400159 - r * 0.85373472095314; }
@@ -559,11 +559,11 @@ float snoise(float3 v)
                 i.screenPos= ASE_ComputeGrabScreenPos( i.screenPos);
                 i.screenPos.xy=i.screenPos.xy/i.screenPos.w;
                // return  float4(i.screenPos.xy,0,1);
-                if(snoise(float3(i.screenPos.xy+_Time.y*_Seed*float2(0.000001,0.000001),0)*float3(200000,200000,200000)).x<=0.5)
-               // if(snoise(float3(i.positionWS+_Time.y*float3(1,0,0))*float3(20000000,20000000,20000000)).x<=0.1)
-                {
-                    return float4(0,0,0,0);
-                }
+             //   if(snoise(float3(i.screenPos.xy+_Time.y*_Seed*float2(0.000001,0.000001),0)*float3(200000,200000,200000)).x<=0.5)
+            //   // if(snoise(float3(i.positionWS+_Time.y*float3(1,0,0))*float3(20000000,20000000,20000000)).x<=0.1)
+           //     {
+            //        return float4(0,0,0,0);
+           //     }
                 
                 float3 rayOrginPosOS = mul(unity_WorldToObject, float4(_WorldSpaceCameraPos, 1));
                 float3 rayDirOS = normalize(i.positionOS - rayOrginPosOS);
