@@ -1,6 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -103,17 +104,24 @@ public class SSDepthMaskPassFeature : ScriptableRendererFeature
         {
             
             CommandBuffer cmd = CommandBufferPool.Get(_setting.profileTag);
-            using (new ProfilingScope(cmd, profilingSampler)) 
-            {
-                context.ExecuteCommandBuffer(cmd);
-                cmd.Clear();
-                var draw1 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
-                draw1.overrideMaterial = _setting.material;
-                draw1.overrideMaterialPassIndex = 2;
+            
+            Profiler.BeginSample(profilingSampler.name);
+            cmd.BeginSample(profilingSampler.name);
+            context.ExecuteCommandBuffer(cmd);
+            cmd.Clear();
+            var draw1 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
+            draw1.overrideMaterial = _setting.material;
+            draw1.overrideMaterialPassIndex = 2;
                 
-                context.DrawRenderers(renderingData.cullResults, ref draw1, ref filtering);
+            context.DrawRenderers(renderingData.cullResults, ref draw1, ref filtering);
+            cmd.EndSample(profilingSampler.name);
+            Profiler.EndSample();
+            
+            /*using (new ProfilingScope(cmd, profilingSampler)) 
+            {
+             
                
-            }
+            }*/
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
             CommandBufferPool.Release(cmd);

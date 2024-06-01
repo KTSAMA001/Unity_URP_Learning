@@ -1,6 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -63,14 +64,20 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
             //这样就可以使用Volume后处理 组件来调节参数了
             _setting.material.SetFloat("_InsiteEdgeWidth",_setting.ssol._edgeWidth.value);
             _setting.material.SetColor("_EdgeColor",_setting.ssol._edgeColor.value);
-            using (new ProfilingScope(cmd, profilingSampler)) 
+            Profiler.BeginSample(profilingSampler.name);
+            cmd.BeginSample(profilingSampler.name);
+            CoreUtils.SetRenderTarget(cmd,_tempRT);
+            Blitter.BlitTexture(cmd,_setting.cameraColorTag,new Vector4(1,1,0,0),_setting.material,0);
+            CoreUtils.SetRenderTarget(cmd,_setting.cameraColorTag);
+            Blitter.BlitTexture(cmd,_tempRT,_setting.cameraColorTag,_setting.material,0);
+            cmd.EndSample(profilingSampler.name);
+            Profiler.EndSample();
+            
+            /*using (new ProfilingScope(cmd, profilingSampler)) 
             {   
              
-               CoreUtils.SetRenderTarget(cmd,_tempRT);
-               Blitter.BlitTexture(cmd,_setting.cameraColorTag,new Vector4(1,1,0,0),_setting.material,0);
-               CoreUtils.SetRenderTarget(cmd,_setting.cameraColorTag);
-               Blitter.BlitTexture(cmd,_tempRT,_setting.cameraColorTag,_setting.material,0);
-            }
+              
+            }*/
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
             CommandBufferPool.Release(cmd);

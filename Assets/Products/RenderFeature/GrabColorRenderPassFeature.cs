@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -120,27 +121,32 @@ class GrabColorPass : ScriptableRenderPass
     {
         CommandBuffer cmd = CommandBufferPool.Get(_setting.profileTag);
       
-        using (new ProfilingScope(cmd, profilingSampler)) 
-        {  
-            // cmd.Blit(_setting.cameraColorTag,_grabRT);
+        Profiler.BeginSample(profilingSampler.name);
+        cmd.BeginSample(profilingSampler.name);
+        // cmd.Blit(_setting.cameraColorTag,_grabRT);
 #if UNITY_EDITOR
-            if (SceneView.currentDrawingSceneView)
-            {
-                Blitter.BlitCameraTexture(cmd,_setting.scene_cameraColorTag,_grabRT_SceneView);
-            }
-            else
-            {
+        if (SceneView.currentDrawingSceneView)
+        {
+            Blitter.BlitCameraTexture(cmd,_setting.scene_cameraColorTag,_grabRT_SceneView);
+        }
+        else
+        {
                 
-                    Blitter.BlitCameraTexture(cmd,_setting.cameraColorTag,_grabRT_GameView);
+            Blitter.BlitCameraTexture(cmd,_setting.cameraColorTag,_grabRT_GameView);
         
-                }
+        }
           
-            #else
+#else
        
               Blitter.BlitCameraTexture(cmd,_setting.cameraColorTag,_grabRT_GameView);
         
 #endif
-        }
+        cmd.EndSample(profilingSampler.name);
+        Profiler.EndSample();
+        /*using (new ProfilingScope(cmd, profilingSampler)) 
+        {  
+            
+        }*/
         context.ExecuteCommandBuffer(cmd);
         cmd.Clear();
         CommandBufferPool.Release(cmd);

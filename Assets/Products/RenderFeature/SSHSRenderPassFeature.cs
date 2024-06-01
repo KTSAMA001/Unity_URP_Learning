@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
@@ -83,27 +84,32 @@ public class SSHSRenderPassFeature : ScriptableRendererFeature
         {
             CommandBuffer cmd = CommandBufferPool.Get(_setting.profileTag);
             
-            //    if (SceneView.currentDrawingSceneView)
+            // if (SceneView.currentDrawingSceneView)
             // {
             //    
             // }
             //
             
-            
-            using (new ProfilingScope(cmd, profilingSampler)) 
-            {   
-                context.ExecuteCommandBuffer(cmd);
-                cmd.Clear();
-                var draw1 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
-                draw1.overrideMaterial = _setting.material;
-                draw1.overrideMaterialPassIndex = 0;
-                context.DrawRenderers(renderingData.cullResults, ref draw1, ref filtering);
+            Profiler.BeginSample(profilingSampler.name);
+            cmd.BeginSample(profilingSampler.name);
+            context.ExecuteCommandBuffer(cmd);
+            cmd.Clear();
+            var draw1 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
+            draw1.overrideMaterial = _setting.material;
+            draw1.overrideMaterialPassIndex = 0;
+            context.DrawRenderers(renderingData.cullResults, ref draw1, ref filtering);
 
-                var draw2 = CreateDrawingSettings(shaderTag2, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
-                draw2.overrideMaterial = _setting.material;
-                draw2.overrideMaterialPassIndex = 1;
-                context.DrawRenderers(renderingData.cullResults, ref draw2, ref filtering2);
-            }
+            var draw2 = CreateDrawingSettings(shaderTag2, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
+            draw2.overrideMaterial = _setting.material;
+            draw2.overrideMaterialPassIndex = 1;
+            context.DrawRenderers(renderingData.cullResults, ref draw2, ref filtering2);
+            cmd.EndSample(profilingSampler.name);
+            Profiler.EndSample();
+            
+            /*using (new ProfilingScope(cmd, profilingSampler)) 
+            {   
+              
+            }*/
             context.ExecuteCommandBuffer(cmd);
             cmd.Clear();
             CommandBufferPool.Release(cmd);
