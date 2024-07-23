@@ -130,7 +130,7 @@ class GrabColorPass : ScriptableRenderPass
         {
             Blitter.BlitCameraTexture(cmd,_setting.scene_cameraColorTag,_grabRT_SceneView);
         }
-        else
+        else if(!renderingData.cameraData.isPreviewCamera)
         {
                 
             Blitter.BlitCameraTexture(cmd,_setting.cameraColorTag,_grabRT_GameView);
