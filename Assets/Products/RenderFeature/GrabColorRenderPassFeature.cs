@@ -45,6 +45,7 @@ public class GrabColorRenderPassFeature : ScriptableRendererFeature
         if (SceneView.currentDrawingSceneView)
         {
             setting.scene_cameraColorTag = renderer.cameraColorTargetHandle;
+            setting.cameraColorTag = renderer.cameraColorTargetHandle;
         }
         else
         {
