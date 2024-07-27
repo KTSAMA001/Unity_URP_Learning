@@ -30,6 +30,7 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
             this._setting = setting;
 
         }
+        
         // This method is called before executing the render pass.
         // It can be used to configure render targets and their clear state. Also to create temporary render target textures.
         // When empty this render pass will render to the active camera render target.
@@ -37,9 +38,12 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
         // The render pipeline will ensure target setup and clearing happens in a performant manner.
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
-           
+            if(_setting.cameraColorTag == null) return;
+
             profilingSampler = new ProfilingSampler(_setting.profileTag);
             ConfigureInput(ScriptableRenderPassInput.Color);
+            //初始化cameraColorTag
+            
             ConfigureTarget(_setting.cameraColorTag);
             GetTempRT(renderingData);
         }
@@ -47,7 +51,6 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
         public void GetTempRT(in RenderingData data) {
             RenderingUtils.ReAllocateIfNeeded(ref _tempRT, data.cameraData.cameraTargetDescriptor);
         } 
-
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
          
@@ -56,6 +59,8 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
         private RTHandle _tempRT;
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
+            if(_setting.cameraColorTag == null) return;
+                
             CommandBuffer cmd = CommandBufferPool.Get(_setting.profileTag);
             // context.ExecuteCommandBuffer(cmd);
             // cmd.Clear();
@@ -119,8 +124,14 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
         //
         //     return;
         // }
-        if(ssol.isEnabled.value)
-        renderer.EnqueuePass(m_ScriptablePass);
+        if (!ShouldRender(renderingData))
+        {
+            return;
+        }
+        if (ssol.isEnabled.value)
+        {
+            renderer.EnqueuePass(m_ScriptablePass);
+        }
     }
 
     public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
@@ -129,6 +140,7 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
         setting.cameraColorTag = renderer.cameraColorTargetHandle;
         
     }
+    
     protected override void Dispose(bool disposing) {
         base.Dispose(disposing);
 #if UNITY_EDITOR
@@ -143,7 +155,7 @@ public class SSOutLinePassFeature : ScriptableRendererFeature
 #endif
     }
     bool ShouldRender(in RenderingData data) {
-        if (!data.cameraData.postProcessEnabled || data.cameraData.cameraType != CameraType.Game) {
+        if (!data.cameraData.postProcessEnabled /*|| data.cameraData.cameraType != CameraType.Game*/) {
             return false;
         }
         if (m_ScriptablePass == null) {
