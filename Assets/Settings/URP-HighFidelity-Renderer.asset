@@ -1,5 +1,28 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6214755569176046838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1742ea9865849409aa83994c2a6821, type: 3}
+  m_Name: MucusMaskRenderPassFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  setting:
+    targetLayer:
+      serializedVersion: 2
+      m_Bits: 8192
+    renderPassEvent: 250
+    profileTag: MuscusMask Pass
+    renderQueueType: 0
+    PassNames: []
+    material: {fileID: 2100000, guid: 3bce5c2e9a465fe4b816c9b42894d2e5, type: 2}
+    passIndex: 0
 --- !u!114 &-2602409607111977824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62c9c65cf3354c93be831c8bc075510, type: 3}
   m_Name: SSAO
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   m_Settings:
     AOMethod: 1
     Downsample: 1
@@ -137,11 +160,14 @@ MonoBehaviour:
   - {fileID: -1878332245247344467}
   - {fileID: 1584532231351853829}
   - {fileID: -2417261914502359505}
-  - {fileID: 8519295336051967048}
   - {fileID: -2602409607111977824}
+  - {fileID: 8519295336051967048}
   - {fileID: 1357809007107826828}
   - {fileID: -2486827579967927428}
-  m_RendererFeatureMap: adc0de57c6d2eee50563e250ab63fd152f960191182974de48040592f89d3a76a0d406204062e2db8ce47c1519e8d7127c0b5ee67d037ddd
+  - {fileID: -6214755569176046838}
+  - {fileID: 2730081504250235763}
+  - {fileID: 6007105980252493557}
+  m_RendererFeatureMap: adc0de57c6d2eee50563e250ab63fd152f960191182974dea0d406204062e2db48040592f89d3a768ce47c1519e8d7127c0b5ee67d037ddd0a9361adbcc0c0a9730bb3dca932e325f51613e10f875d53
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -179,8 +205,8 @@ MonoBehaviour:
     failOperation: 0
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
-  m_RenderingMode: 2
-  m_DepthPrimingMode: 1
+  m_RenderingMode: 0
+  m_DepthPrimingMode: 2
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
@@ -199,7 +225,6 @@ MonoBehaviour:
   m_Active: 1
   setting:
     profileTag: Grab Color Pass
-    scene_cameraRT: {fileID: 0}
 --- !u!114 &1584532231351853829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +239,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 0
   m_Shader: {fileID: 4800000, guid: 0f854b35a0cf61a429bd5dcfea30eddd, type: 3}
+--- !u!114 &2730081504250235763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: RenderObjects
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  settings:
+    passTag: RenderObjects
+    Event: 300
+    filterSettings:
+      RenderQueueType: 1
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 8192
+      PassNames: []
+    overrideMaterial: {fileID: 2100000, guid: c6c67a0f6512da94bb31a80fe708bb9c, type: 2}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 1
+    overrideDepthState: 0
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 0
+      stencilReference: 0
+      stencilCompareFunction: 8
+      passOperation: 0
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
+--- !u!114 &6007105980252493557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c34db5b5a2d7924dae1f2d6cfb8779c, type: 3}
+  m_Name: OcclisionVision1
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  setting:
+    Layer:
+      serializedVersion: 2
+      m_Bits: 16384
+    profileTag: CustomRT
+    RTName: CustomRT1
+    queueMin: 2000
+    queueMax: 3000
+    material: {fileID: 2100000, guid: 3dce985bf321d5b4580714df52352f47, type: 2}
 --- !u!114 &7805888217838758205
 MonoBehaviour:
   m_ObjectHideFlags: 0
