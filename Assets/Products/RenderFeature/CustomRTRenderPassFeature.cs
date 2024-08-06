@@ -96,10 +96,10 @@ public class CustomRTRenderPassFeature : ScriptableRendererFeature
             draw1.overrideMaterial = _setting.material;
             draw1.overrideMaterialPassIndex = 0;
             context.DrawRenderers(renderingData.cullResults, ref draw1, ref filtering1);
-            var draw2 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
-            draw2.overrideMaterial = _setting.material;
-            draw2.overrideMaterialPassIndex = 1;
-            context.DrawRenderers(renderingData.cullResults, ref draw2, ref filtering1);
+            // var draw2 = CreateDrawingSettings(shaderTag1, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
+            // draw2.overrideMaterial = _setting.material;
+            // draw2.overrideMaterialPassIndex = 1;
+            // context.DrawRenderers(renderingData.cullResults, ref draw2, ref filtering1);
 
            
             cmd.EndSample(profilingSampler.name);
