@@ -103,7 +103,6 @@ public class SSHSRenderPassFeature : ScriptableRendererFeature
             draw2.overrideMaterial = _setting.material;
             draw2.overrideMaterialPassIndex = 0;
             context.DrawRenderers(renderingData.cullResults, ref draw2, ref filtering2);
-            cmd.EndSample(profilingSampler.name);
             
             var draw3 = CreateDrawingSettings(shaderTag2, ref renderingData, renderingData.cameraData.defaultOpaqueSortFlags);
             draw3.overrideMaterial = _setting.material;
