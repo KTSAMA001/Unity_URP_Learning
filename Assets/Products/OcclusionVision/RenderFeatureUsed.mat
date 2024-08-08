@@ -38,14 +38,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _DitherPower: 0.233
+    - _DitherPower: 1
     - _EnvironmentReflections: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SpecularHighlights: 1
     m_Colors:
-    - _Color0: {r: 0.60754704, g: 0.01514087, b: 0, a: 1}
-    - _Color1: {r: 0, g: 0.8235297, b: 1, a: 1}
+    - _Color0: {r: 1, g: 0.32536215, b: 0, a: 1}
+    - _Color1: {r: 0, g: 1, b: 0.9254689, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

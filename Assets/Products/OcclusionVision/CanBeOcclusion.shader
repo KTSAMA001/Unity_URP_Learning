@@ -6,8 +6,12 @@ Shader "CanBeOcclusion"
 	{
 		[HideInInspector] _AlphaCutoff("Alpha Cutoff ", Range(0, 1)) = 0.5
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
-		[ASEBegin]_Alpha("Alpha", Range( 0 , 1)) = 0.5
-		[ASEEnd]_AlphaClipThreshold1("AlphaClipThreshold", Range( 0 , 1)) = 0.5
+		[ASEBegin]_Color0("Color 0", Color) = (1,0,0,1)
+		_Alpha("Alpha", Range( 0 , 1)) = 0.5
+		_AlphaClipThreshold1("AlphaClipThreshold", Range( 0 , 1)) = 0.5
+		[Toggle(_DEBUG_ON)] _Debug("Debug", Float) = 0
+		[Toggle(_DEBUG1_ON)] _Debug1("Debug", Float) = 0
+		[ASEEnd][Toggle(_DEBUG2_ON)] _Debug2("Debug", Float) = 0
 
 
 		//_TessPhongStrength( "Tess Phong Strength", Range( 0, 1 ) ) = 0.5
@@ -205,7 +209,10 @@ Shader "CanBeOcclusion"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceData.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
 
-			
+			#pragma shader_feature_local _DEBUG_ON
+			#pragma shader_feature_local _DEBUG1_ON
+			#pragma shader_feature_local _DEBUG2_ON
+
 
 			struct VertexInput
 			{
@@ -233,6 +240,7 @@ Shader "CanBeOcclusion"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Color0;
 			float _Alpha;
 			float _AlphaClipThreshold1;
 			#ifdef ASE_TESSELLATION
@@ -421,16 +429,32 @@ Shader "CanBeOcclusion"
 				float4 ase_screenPosNorm = screenPos / screenPos.w;
 				ase_screenPosNorm.z = ( UNITY_NEAR_CLIP_VALUE >= 0 ) ? ase_screenPosNorm.z : ase_screenPosNorm.z * 0.5 + 0.5;
 				float4 tex2DNode17 = tex2D( CustomRT1, ase_screenPosNorm.xy );
+				#ifdef _DEBUG_ON
+				float4 staticSwitch34 = _Color0;
+				#else
+				float4 staticSwitch34 = tex2DNode17;
+				#endif
 				
 				float2 clipScreen14 = ase_screenPosNorm.xy * _ScreenParams.xy;
 				float dither14 = Dither8x8Bayer( fmod(clipScreen14.x, 8), fmod(clipScreen14.y, 8) );
 				dither14 = step( dither14, _Alpha );
+				#ifdef _DEBUG1_ON
+				float staticSwitch36 = 1.0;
+				#else
+				float staticSwitch36 = dither14;
+				#endif
+				
+				#ifdef _DEBUG2_ON
+				float staticSwitch38 = 0.0;
+				#else
+				float staticSwitch38 = _AlphaClipThreshold1;
+				#endif
 				
 				float3 BakedAlbedo = 0;
 				float3 BakedEmission = 0;
-				float3 Color = tex2DNode17.rgb;
-				float Alpha = dither14;
-				float AlphaClipThreshold = _AlphaClipThreshold1;
+				float3 Color = staticSwitch34.rgb;
+				float Alpha = staticSwitch36;
+				float AlphaClipThreshold = staticSwitch38;
 				float AlphaClipThresholdShadow = 0.5;
 
 				#ifdef _ALPHATEST_ON
@@ -495,7 +519,9 @@ Shader "CanBeOcclusion"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
 
-			
+			#pragma shader_feature_local _DEBUG1_ON
+			#pragma shader_feature_local _DEBUG2_ON
+
 
 			struct VertexInput
 			{
@@ -520,6 +546,7 @@ Shader "CanBeOcclusion"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Color0;
 			float _Alpha;
 			float _AlphaClipThreshold1;
 			#ifdef ASE_TESSELLATION
@@ -719,10 +746,21 @@ Shader "CanBeOcclusion"
 				float2 clipScreen14 = ase_screenPosNorm.xy * _ScreenParams.xy;
 				float dither14 = Dither8x8Bayer( fmod(clipScreen14.x, 8), fmod(clipScreen14.y, 8) );
 				dither14 = step( dither14, _Alpha );
+				#ifdef _DEBUG1_ON
+				float staticSwitch36 = 1.0;
+				#else
+				float staticSwitch36 = dither14;
+				#endif
+				
+				#ifdef _DEBUG2_ON
+				float staticSwitch38 = 0.0;
+				#else
+				float staticSwitch38 = _AlphaClipThreshold1;
+				#endif
 				
 
-				float Alpha = dither14;
-				float AlphaClipThreshold = _AlphaClipThreshold1;
+				float Alpha = staticSwitch36;
+				float AlphaClipThreshold = staticSwitch38;
 				float AlphaClipThresholdShadow = 0.5;
 
 				#ifdef _ALPHATEST_ON
@@ -768,7 +806,9 @@ Shader "CanBeOcclusion"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
 
-			
+			#pragma shader_feature_local _DEBUG1_ON
+			#pragma shader_feature_local _DEBUG2_ON
+
 
 			struct VertexInput
 			{
@@ -793,6 +833,7 @@ Shader "CanBeOcclusion"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Color0;
 			float _Alpha;
 			float _AlphaClipThreshold1;
 			#ifdef ASE_TESSELLATION
@@ -972,10 +1013,21 @@ Shader "CanBeOcclusion"
 				float2 clipScreen14 = ase_screenPosNorm.xy * _ScreenParams.xy;
 				float dither14 = Dither8x8Bayer( fmod(clipScreen14.x, 8), fmod(clipScreen14.y, 8) );
 				dither14 = step( dither14, _Alpha );
+				#ifdef _DEBUG1_ON
+				float staticSwitch36 = 1.0;
+				#else
+				float staticSwitch36 = dither14;
+				#endif
+				
+				#ifdef _DEBUG2_ON
+				float staticSwitch38 = 0.0;
+				#else
+				float staticSwitch38 = _AlphaClipThreshold1;
+				#endif
 				
 
-				float Alpha = dither14;
-				float AlphaClipThreshold = _AlphaClipThreshold1;
+				float Alpha = staticSwitch36;
+				float AlphaClipThreshold = staticSwitch38;
 
 				#ifdef _ALPHATEST_ON
 					clip(Alpha - AlphaClipThreshold);
@@ -1020,7 +1072,9 @@ Shader "CanBeOcclusion"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
-			
+			#pragma shader_feature_local _DEBUG1_ON
+			#pragma shader_feature_local _DEBUG2_ON
+
 
 			struct VertexInput
 			{
@@ -1039,6 +1093,7 @@ Shader "CanBeOcclusion"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Color0;
 			float _Alpha;
 			float _AlphaClipThreshold1;
 			#ifdef ASE_TESSELLATION
@@ -1203,10 +1258,21 @@ Shader "CanBeOcclusion"
 				float2 clipScreen14 = ase_screenPosNorm.xy * _ScreenParams.xy;
 				float dither14 = Dither8x8Bayer( fmod(clipScreen14.x, 8), fmod(clipScreen14.y, 8) );
 				dither14 = step( dither14, _Alpha );
+				#ifdef _DEBUG1_ON
+				float staticSwitch36 = 1.0;
+				#else
+				float staticSwitch36 = dither14;
+				#endif
+				
+				#ifdef _DEBUG2_ON
+				float staticSwitch38 = 0.0;
+				#else
+				float staticSwitch38 = _AlphaClipThreshold1;
+				#endif
 				
 
-				surfaceDescription.Alpha = dither14;
-				surfaceDescription.AlphaClipThreshold = _AlphaClipThreshold1;
+				surfaceDescription.Alpha = staticSwitch36;
+				surfaceDescription.AlphaClipThreshold = staticSwitch38;
 
 				#if _ALPHATEST_ON
 					float alphaClipThreshold = 0.01f;
@@ -1251,7 +1317,9 @@ Shader "CanBeOcclusion"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
-			
+			#pragma shader_feature_local _DEBUG1_ON
+			#pragma shader_feature_local _DEBUG2_ON
+
 
 			struct VertexInput
 			{
@@ -1270,6 +1338,7 @@ Shader "CanBeOcclusion"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Color0;
 			float _Alpha;
 			float _AlphaClipThreshold1;
 			#ifdef ASE_TESSELLATION
@@ -1429,10 +1498,21 @@ Shader "CanBeOcclusion"
 				float2 clipScreen14 = ase_screenPosNorm.xy * _ScreenParams.xy;
 				float dither14 = Dither8x8Bayer( fmod(clipScreen14.x, 8), fmod(clipScreen14.y, 8) );
 				dither14 = step( dither14, _Alpha );
+				#ifdef _DEBUG1_ON
+				float staticSwitch36 = 1.0;
+				#else
+				float staticSwitch36 = dither14;
+				#endif
+				
+				#ifdef _DEBUG2_ON
+				float staticSwitch38 = 0.0;
+				#else
+				float staticSwitch38 = _AlphaClipThreshold1;
+				#endif
 				
 
-				surfaceDescription.Alpha = dither14;
-				surfaceDescription.AlphaClipThreshold = _AlphaClipThreshold1;
+				surfaceDescription.Alpha = staticSwitch36;
+				surfaceDescription.AlphaClipThreshold = staticSwitch38;
 
 				#if _ALPHATEST_ON
 					float alphaClipThreshold = 0.01f;
@@ -1490,7 +1570,9 @@ Shader "CanBeOcclusion"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
 
-			
+			#pragma shader_feature_local _DEBUG1_ON
+			#pragma shader_feature_local _DEBUG2_ON
+
 
 			struct VertexInput
 			{
@@ -1510,6 +1592,7 @@ Shader "CanBeOcclusion"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Color0;
 			float _Alpha;
 			float _AlphaClipThreshold1;
 			#ifdef ASE_TESSELLATION
@@ -1678,10 +1761,21 @@ Shader "CanBeOcclusion"
 				float2 clipScreen14 = ase_screenPosNorm.xy * _ScreenParams.xy;
 				float dither14 = Dither8x8Bayer( fmod(clipScreen14.x, 8), fmod(clipScreen14.y, 8) );
 				dither14 = step( dither14, _Alpha );
+				#ifdef _DEBUG1_ON
+				float staticSwitch36 = 1.0;
+				#else
+				float staticSwitch36 = dither14;
+				#endif
+				
+				#ifdef _DEBUG2_ON
+				float staticSwitch38 = 0.0;
+				#else
+				float staticSwitch38 = _AlphaClipThreshold1;
+				#endif
 				
 
-				surfaceDescription.Alpha = dither14;
-				surfaceDescription.AlphaClipThreshold = _AlphaClipThreshold1;
+				surfaceDescription.Alpha = staticSwitch36;
+				surfaceDescription.AlphaClipThreshold = staticSwitch38;
 
 				#if _ALPHATEST_ON
 					clip(surfaceDescription.Alpha - surfaceDescription.AlphaClipThreshold);
@@ -1738,11 +1832,16 @@ Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;27;467.9998,13.60001;Float;
 Node;AmplifyShaderEditor.SamplerNode;17;15.19748,-275.5002;Inherit;True;Property;_TextureSample0;Texture Sample 0;2;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;31;459.7892,-393.3881;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.ScreenPosInputsNode;28;-292.0027,-348.3;Float;False;0;False;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.TexturePropertyNode;16;-326.4026,-558.7001;Inherit;True;Global;CustomRT1;CustomRT1;1;0;Create;True;0;0;0;False;0;False;None;None;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;19;509.5999,-168.8;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;CanBeOcclusion;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;True;True;True;2;False;;2;False;;3;False;;5;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;True;True;2;False;;True;2;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;;0;0;Standard;23;Surface;0;638587199302572406;  Blend;0;0;Two Sided;1;0;Forward Only;0;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;0;0;Built-in Fog;0;0;DOTS Instancing;0;0;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;0;10;False;True;True;True;False;False;True;True;True;False;False;;False;0
-Node;AmplifyShaderEditor.RangedFloatNode;33;106.9891,-34.58813;Inherit;False;Property;_AlphaClipThreshold1;AlphaClipThreshold;3;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.TexturePropertyNode;16;-326.4026,-556.5756;Inherit;True;Global;CustomRT1;CustomRT1;1;0;Create;True;0;0;0;False;0;False;None;;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.ColorNode;10;-546.4001,-212.3;Inherit;False;Property;_Color0;Color 0;0;0;Create;True;0;0;0;False;0;False;1,0,0,1;1,0,0,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;32;-576.2106,-33.78812;Inherit;False;Property;_Alpha;Alpha;2;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;19;866.3998,-112;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;13;CanBeOcclusion;2992e84f91cbeb14eab234972e07ea9d;True;Forward;0;1;Forward;8;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;0;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;True;4;RenderPipeline=UniversalPipeline;RenderType=Transparent=RenderType;Queue=Transparent=Queue=0;UniversalMaterialType=Unlit;True;5;True;12;all;0;False;True;1;1;False;;0;False;;1;1;False;;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;True;True;True;True;0;False;;False;False;False;False;False;False;True;True;True;2;False;;2;False;;3;False;;5;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;True;True;2;False;;True;2;False;;True;True;0;False;;0;False;;True;1;LightMode=UniversalForwardOnly;False;False;0;;0;0;Standard;23;Surface;0;638587199302572406;  Blend;0;0;Two Sided;1;0;Forward Only;0;0;Cast Shadows;1;0;  Use Shadow Threshold;0;0;Receive Shadows;1;0;GPU Instancing;1;0;LOD CrossFade;0;0;Built-in Fog;0;0;DOTS Instancing;0;0;Meta Pass;0;0;Extra Pre Pass;0;0;Tessellation;0;0;  Phong;0;0;  Strength;0.5,False,;0;  Type;0;0;  Tess;16,False,;0;  Min;10,False,;0;  Max;25,False,;0;  Edge Length;16,False,;0;  Max Displacement;25,False,;0;Vertex Position,InvertActionOnDeselection;1;0;0;10;False;True;True;True;False;False;True;True;True;False;False;;False;0
+Node;AmplifyShaderEditor.StaticSwitch;34;498.8156,-158.7586;Inherit;False;Property;_Debug;Debug;4;0;Create;True;0;0;0;False;0;False;0;0;0;True;;Toggle;2;Key0;Key1;Create;True;True;All;9;1;COLOR;0,0,0,0;False;0;COLOR;0,0,0,0;False;2;COLOR;0,0,0,0;False;3;COLOR;0,0,0,0;False;4;COLOR;0,0,0,0;False;5;COLOR;0,0,0,0;False;6;COLOR;0,0,0,0;False;7;COLOR;0,0,0,0;False;8;COLOR;0,0,0,0;False;1;COLOR;0
+Node;AmplifyShaderEditor.StaticSwitch;36;526.0156,-1.958679;Inherit;False;Property;_Debug1;Debug;5;0;Create;True;0;0;0;False;0;False;0;0;0;True;;Toggle;2;Key0;Key1;Create;True;True;All;9;1;FLOAT;0;False;0;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;0;False;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;33;103.5874,478.3987;Inherit;False;Property;_AlphaClipThreshold1;AlphaClipThreshold;3;0;Create;True;0;0;0;False;0;False;0.5;0.5;0;1;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;37;354.8156,178.8413;Inherit;False;Constant;_Float0;Float 0;6;0;Create;True;0;0;0;False;0;False;1;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.RangedFloatNode;39;374.0157,313.2413;Inherit;False;Constant;_Float1;Float 0;6;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.StaticSwitch;38;562.0158,164.4413;Inherit;False;Property;_Debug2;Debug;6;0;Create;True;0;0;0;False;0;False;0;0;0;True;;Toggle;2;Key0;Key1;Create;True;True;All;9;1;FLOAT;0;False;0;FLOAT;0;False;2;FLOAT;0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT;0;False;7;FLOAT;0;False;8;FLOAT;0;False;1;FLOAT;0
 WireConnection;13;0;11;0
 WireConnection;12;0;13;0
 WireConnection;15;0;14;0
@@ -1750,8 +1849,14 @@ WireConnection;14;0;32;0
 WireConnection;17;0;16;0
 WireConnection;17;1;28;0
 WireConnection;31;0;17;0
-WireConnection;19;2;17;0
-WireConnection;19;3;15;0
-WireConnection;19;4;33;0
+WireConnection;19;2;34;0
+WireConnection;19;3;36;0
+WireConnection;19;4;38;0
+WireConnection;34;1;17;0
+WireConnection;34;0;10;0
+WireConnection;36;1;15;0
+WireConnection;36;0;37;0
+WireConnection;38;1;33;0
+WireConnection;38;0;39;0
 ASEEND*/
-//CHKSM=94B7D49D41043907E946F451B4350AD04F17AEDB
+//CHKSM=A413660BE7818304DF87B4645DAF88A81AA8CD4D

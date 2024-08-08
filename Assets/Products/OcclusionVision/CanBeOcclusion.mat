@@ -45,7 +45,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 0.083
+    - _AlphaClipThreshold: -0.08
+    - _AlphaClipThreshold1: 0.5
     - _AlphaCutoff: 0.5
+    - _Debug: 0
+    - _Debug1: 0
+    - _Debug2: 0
     - _EnvironmentReflections: 1
     - _QueueControl: 0
     - _QueueOffset: 1
@@ -65,6 +71,6 @@ Material:
     - _TransStrength: 1
     - _TransmissionShadow: 0.5
     m_Colors:
-    - _Color0: {r: 1, g: 0, b: 0, a: 0.39607844}
+    - _Color0: {r: 1, g: 0.7075472, b: 0.7075472, a: 0.39607844}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
