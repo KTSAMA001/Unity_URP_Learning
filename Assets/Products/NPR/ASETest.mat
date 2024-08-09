@@ -19,7 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _LeftEyeRotate
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -86,7 +86,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RandomSeed: 212.6
-    - _RightEyeRotate: -60.2
+    - _RightEyeRotate: -116.7
     - _RotateSpeed: 1
     - _RotateSpeedScale: 0
     - _SDF_Scale: 10

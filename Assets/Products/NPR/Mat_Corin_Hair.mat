@@ -213,6 +213,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EnvColor: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
     - _EnvColor_Specular: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceForward: {r: -1, g: 0, b: 0, a: 0}
+    - _FaceRight: {r: 0, g: -1, b: 0, a: 0}
     - _FaceShadowPosWS: {r: 0, g: 0, b: 0, a: 0}
     - _RampColor: {r: 1, g: 1, b: 1, a: 1}
     - _RampColor_Other: {r: 0.78657883, g: 0.8490566, b: 0.82562745, a: 1}

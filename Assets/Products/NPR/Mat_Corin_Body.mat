@@ -150,13 +150,13 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BlendOp: 0
-    - _BumpScale: 1
+    - _BumpScale: 0.66
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Culloff: 1
     - _Cutoff: 0.5
-    - _DebugFloat: 70.68
+    - _DebugFloat: 0
     - _Depth_Mask_Color_Local: 1
     - _Depth_Offset_Color_Local: 1
     - _DetailAlbedoMapScale: 1
@@ -212,6 +212,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EnvColor: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
     - _EnvColor_Specular: {r: 1, g: 1, b: 1, a: 1}
+    - _FaceForward: {r: -1, g: 0, b: 0, a: 0}
+    - _FaceRight: {r: 0, g: -1, b: 0, a: 0}
     - _FaceShadowPosWS: {r: 0, g: 0, b: 0, a: 0}
     - _RampColor: {r: 1, g: 1, b: 1, a: 1}
     - _RampColor_Other: {r: 1, g: 1, b: 1, a: 1}
