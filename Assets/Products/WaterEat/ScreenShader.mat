@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ScreenShader
+  m_Shader: {fileID: 4800000, guid: 41f803950a9a4a24ea712b2e96bac7d6, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3047
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _FX: 0.05
+    - _FZ: 0.05
+    - _Offset: 1.53
+    - _PX: 2
+    - _PZ: 0.89
+    - _QueueControl: 1
+    - _QueueOffset: 47
+    - _SpeedX: 5
+    - _SpeedX1: 5
+    - _SpeedZ: 3
+    - _SpeedZ1: 3
+    m_Colors:
+    - _BackLightPower: {r: 1, g: 10, b: 0, a: 0}
+    - _DepthColor: {r: 0.34645063, g: 0.7180593, b: 0.7433963, a: 1}
+    - _DepthSmoothStep: {r: 0.55, g: 1.08, b: 0, a: 0}
+    - _DepthWSYST: {r: 0.76, g: 1.76, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ScreenUVOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _SepthSmoothStep: {r: 0.2, g: 3.39, b: 0, a: 0}
+    - _Vector0: {r: 0, g: 0.03, b: 0, a: 0}
+    - _Vector1: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 1, b: 0, a: 0}
+    - _WaterDown: {r: 0.4460305, g: 0.56015354, b: 0.7056604, a: 1}
+    - _WaterLine: {r: 0.13282299, g: 0.33444852, b: 0.7735849, a: 1}
+  m_BuildTextureStacks: []
